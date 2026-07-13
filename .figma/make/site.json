@@ -1,0 +1,10 @@
+{
+  "description": "Engage in fun and challenging Sudoku games on a modern, user-friendly platform designed for office breaks, accessible on both desktop and mobile.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

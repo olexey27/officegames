@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Chakra Petch';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://static.figma.com/font/ChakraPetch-SemiBold_1') format('woff2');
+}
+
+@font-face {
+  font-family: 'Chakra Petch';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://static.figma.com/font/ChakraPetch-Bold_1') format('woff2');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://static.figma.com/font/Manrope_wght__1') format('woff2');
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://static.figma.com/font/DMMono-Medium_1') format('woff2');
+}
+
+@theme {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+}
+
+:root {
+  --canvas: #f6f5f3;
+  --surface: #ffffff;
+  --surface-soft: #edecea;
+  --ink: #171718;
+  --muted: #6e6d71;
+  --line: #dddcd9;
+  --accent: #e93131;
+  --accent-deep: #bd1d25;
+  --glow: rgba(233, 49, 49, 0.18);
+}
+
+.dark {
+  --canvas: #111112;
+  --surface: #19191b;
+  --surface-soft: #222225;
+  --ink: #f7f6f3;
+  --muted: #a19fa4;
+  --line: #323236;
+  --accent: #ff4b4d;
+  --accent-deep: #d83138;
+  --glow: rgba(255, 75, 77, 0.2);
+}
+
+html {
+  background: var(--canvas);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+.office-grid {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.dark .office-grid {
+  background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+}
+
+.shimmer-line {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
