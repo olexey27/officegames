@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowIcon, GridMark } from '../components/icons'
+import OfficeScene from '../components/OfficeScene'
 import type { Difficulty } from '../games/sudoku/engine'
 
 const difficulties: { name: Difficulty; note: string; time: string; cells: string }[] = [
@@ -24,7 +25,7 @@ export default function Home() {
       <section id="top" className="office-grid relative isolate overflow-hidden border-b border-[var(--line)]">
         <div className="absolute -right-24 top-[-120px] -z-10 size-[510px] rounded-full bg-[var(--accent)] opacity-[.08] blur-3xl" />
         <div className="absolute right-[12%] top-24 -z-10 hidden size-64 rotate-12 rounded-[42px] border border-[var(--accent)] opacity-20 lg:block" />
-        <div className="mx-auto grid min-h-[540px] max-w-[1240px] items-center gap-10 px-5 py-16 lg:grid-cols-[1.1fr_.9fr] lg:px-8 lg:py-20">
+        <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-12 lg:grid-cols-[1.1fr_.9fr] lg:px-8 lg:py-16">
           <div className="max-w-[700px]">
             <p className="mb-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[.18em] text-[var(--accent)]"><span className="h-px w-8 bg-current" /> Better breaks begin here</p>
             <h1 className="font-display text-[clamp(3.2rem,7vw,6.5rem)] font-bold leading-[.87] tracking-[-.075em]">Press pause.<br /><span className="text-[var(--accent)]">Play smart.</span></h1>
@@ -35,18 +36,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[445px] lg:justify-self-end">
-            <div className="absolute inset-8 rounded-[32px] bg-[var(--accent)] opacity-15 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[30px] border border-[var(--line)] bg-[var(--surface)] p-5 shadow-[0_24px_70px_rgba(0,0,0,.13)] sm:p-7">
-              <div className="mb-7 flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Today&apos;s desk break</span><span className="rounded-full bg-[var(--accent)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white">01 live</span></div>
-              <div className="grid grid-cols-3 gap-2.5" aria-label="Preview Sudoku grid">
-                {Array.from({ length: 81 }, (_, index) => {
-                  const values: Record<number, string> = { 0: '7', 2: '4', 5: '8', 7: '2', 12: '3', 15: '9', 20: '5', 24: '8', 28: '9', 31: '6', 35: '4', 37: '6', 40: '2', 43: '9', 45: '4', 49: '7', 53: '3', 56: '8', 60: '1', 64: '5', 68: '6', 71: '8', 73: '2', 77: '4', 80: '7' }
-                  const block = Math.floor(index / 27) * 3 + Math.floor((index % 9) / 3)
-                  return <div key={index} className={`grid aspect-square place-items-center rounded-[3px] text-xs font-bold sm:text-sm ${block % 2 === 0 ? 'bg-[var(--surface-soft)]' : 'bg-[var(--canvas)]'} ${values[index] ? 'text-[var(--ink)]' : ''}`}>{values[index]}</div>
-                })}
-              </div>
-              <div className="mt-6 flex items-center justify-between border-t border-[var(--line)] pt-5"><span className="font-display text-lg font-bold tracking-[-.04em]">Sudoku</span><span className="font-mono text-[10px] text-[var(--muted)]">05:00 avg.</span></div>
+          <div className="relative mx-auto w-full max-w-[460px] lg:justify-self-end">
+            <div className="absolute inset-10 rounded-[32px] bg-[var(--accent)] opacity-15 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[30px] border border-[var(--line)] bg-[var(--surface)] px-5 pt-5 shadow-[0_24px_70px_rgba(0,0,0,.13)] sm:px-7 sm:pt-6">
+              <div className="mb-2 flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Your 5-minute desk break</span><span className="rounded-full bg-[var(--accent)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white">01 live</span></div>
+              <OfficeScene />
             </div>
           </div>
         </div>
