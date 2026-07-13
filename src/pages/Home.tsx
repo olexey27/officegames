@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowIcon, GridMark } from '../components/icons'
-import OfficeScene from '../components/OfficeScene'
+import HeroScreen from '../components/HeroScreen'
 import type { Difficulty } from '../games/sudoku/engine'
 
 const difficulties: { name: Difficulty; note: string; time: string; cells: string }[] = [
@@ -38,9 +38,9 @@ export default function Home() {
 
           <div className="relative mx-auto w-full max-w-[460px] lg:justify-self-end">
             <div className="absolute inset-10 rounded-[32px] bg-[var(--accent)] opacity-15 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[30px] border border-[var(--line)] bg-[var(--surface)] px-5 pt-5 shadow-[0_24px_70px_rgba(0,0,0,.13)] sm:px-7 sm:pt-6">
-              <div className="mb-2 flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Your 5-minute desk break</span><span className="rounded-full bg-[var(--accent)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white">01 live</span></div>
-              <OfficeScene />
+            <div className="relative overflow-hidden rounded-[30px] border border-[var(--line)] bg-[var(--surface)] p-5 shadow-[0_24px_70px_rgba(0,0,0,.13)] sm:p-6">
+              <div className="mb-4 flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Sharks arcade — now open</span><span className="rounded-full bg-[var(--accent)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white">01 live</span></div>
+              <HeroScreen />
             </div>
           </div>
         </div>

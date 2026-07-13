@@ -15,6 +15,7 @@ import {
 } from '../games/sudoku/engine'
 
 const DIFFICULTIES: Difficulty[] = ['Easy', 'Classic', 'Hard']
+const MAX_LIVES = 3
 
 function parseDifficulty(value: string | null): Difficulty {
   return DIFFICULTIES.includes(value as Difficulty) ? (value as Difficulty) : 'Classic'
@@ -26,6 +27,24 @@ function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60)
   const s = seconds % 60
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+}
+
+function Heart({ full, popping }: { full: boolean; popping: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 24 22"
+      className={`size-5 transition-colors duration-300 ${popping ? 'heart-lost' : ''}`}
+      aria-hidden="true"
+    >
+      <path
+        d="M12 21 3.6 12.6a5.7 5.7 0 0 1 0-8.1 5.7 5.7 0 0 1 8.1 0l.3.3.3-.3a5.7 5.7 0 0 1 8.1 8.1Z"
+        fill={full ? 'var(--accent)' : 'transparent'}
+        stroke={full ? 'var(--accent-deep)' : 'var(--muted)'}
+        strokeWidth="1.6"
+        opacity={full ? 1 : 0.45}
+      />
+    </svg>
+  )
 }
 
 export default function Sudoku() {
@@ -40,6 +59,10 @@ export default function Sudoku() {
   const [history, setHistory] = useState<Snapshot[]>([])
   const [seconds, setSeconds] = useState(0)
   const [won, setWon] = useState(false)
+  const [lives, setLives] = useState(MAX_LIVES)
+  const [lost, setLost] = useState(false)
+  const [damageTick, setDamageTick] = useState(0)
+  const [shaking, setShaking] = useState(false)
 
   const boardRef = useRef<HTMLDivElement>(null)
 
@@ -53,6 +76,9 @@ export default function Sudoku() {
     setSelected(null)
     setSeconds(0)
     setWon(false)
+    setLives(MAX_LIVES)
+    setLost(false)
+    setDamageTick(0)
   }, [])
 
   // Regenerate whenever the difficulty in the URL changes.
@@ -61,19 +87,32 @@ export default function Sudoku() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [difficulty])
 
-  // Timer ticks until the puzzle is solved.
+  // Timer ticks until the puzzle is solved or the run is over.
   useEffect(() => {
-    if (won) return
+    if (won || lost) return
     const id = setInterval(() => setSeconds((s) => s + 1), 1000)
     return () => clearInterval(id)
-  }, [won])
+  }, [won, lost])
 
   const conflicts = useMemo(() => findConflicts(values), [values])
 
   // Win check.
   useEffect(() => {
-    if (!won && isComplete(values)) setWon(true)
-  }, [values, won])
+    if (!won && !lost && isComplete(values)) setWon(true)
+  }, [values, won, lost])
+
+  // Out of lives → game over.
+  useEffect(() => {
+    if (lives <= 0 && !won) setLost(true)
+  }, [lives, won])
+
+  // Damage feedback: shake the board briefly on every hit.
+  useEffect(() => {
+    if (damageTick === 0) return
+    setShaking(true)
+    const t = setTimeout(() => setShaking(false), 500)
+    return () => clearTimeout(t)
+  }, [damageTick])
 
   const pushHistory = useCallback(() => {
     setHistory((h) => [...h.slice(-49), { values: values.slice(), notes: notes.map((n) => n.slice()) }])
@@ -81,7 +120,7 @@ export default function Sudoku() {
 
   const setCellValue = useCallback(
     (index: number, value: number) => {
-      if (puzzle.given[index] || won) return
+      if (puzzle.given[index] || won || lost) return
       pushHistory()
       if (notesMode && value !== 0) {
         setNotes((prev) => {
@@ -94,26 +133,32 @@ export default function Sudoku() {
         })
         return
       }
+      const togglingOff = values[index] === value
       setValues((prev) => {
         const next = prev.slice()
-        next[index] = next[index] === value ? 0 : value
+        next[index] = prev[index] === value ? 0 : value
         return next
       })
-      // Placing a real value clears that cell's pencil marks.
       if (value !== 0) {
+        // Placing a real value clears that cell's pencil marks.
         setNotes((prev) => {
           const next = prev.map((n) => n.slice())
           next[index] = []
           return next
         })
+        // Wrong entry → take damage.
+        if (!togglingOff && value !== puzzle.solution[index]) {
+          setDamageTick((t) => t + 1)
+          setLives((l) => Math.max(0, l - 1))
+        }
       }
     },
-    [puzzle.given, won, notesMode, pushHistory],
+    [puzzle.given, puzzle.solution, values, won, lost, notesMode, pushHistory],
   )
 
   const eraseCell = useCallback(
     (index: number) => {
-      if (puzzle.given[index] || won) return
+      if (puzzle.given[index] || won || lost) return
       pushHistory()
       setValues((prev) => {
         const next = prev.slice()
@@ -126,7 +171,7 @@ export default function Sudoku() {
         return next
       })
     },
-    [puzzle.given, won, pushHistory],
+    [puzzle.given, won, lost, pushHistory],
   )
 
   const undo = useCallback(() => {
@@ -140,7 +185,7 @@ export default function Sudoku() {
   }, [])
 
   const hint = useCallback(() => {
-    if (selected === null || puzzle.given[selected] || won) return
+    if (selected === null || puzzle.given[selected] || won || lost) return
     if (values[selected] === puzzle.solution[selected]) return
     pushHistory()
     setValues((prev) => {
@@ -153,7 +198,7 @@ export default function Sudoku() {
       next[selected] = []
       return next
     })
-  }, [selected, puzzle, values, won, pushHistory])
+  }, [selected, puzzle, values, won, lost, pushHistory])
 
   // Keyboard: digits, erase, arrow navigation.
   useEffect(() => {
@@ -189,9 +234,10 @@ export default function Sudoku() {
 
   const selectedValue = selected !== null ? values[selected] : 0
   const filledCount = values.filter((v) => v !== 0).length
+  const locked = won || lost
 
   return (
-    <main className="office-grid mx-auto min-h-[calc(100vh-68px)] max-w-[1240px] px-5 py-8 lg:px-8 lg:py-12">
+    <main className="mx-auto min-h-[calc(100vh-68px)] max-w-[1240px] px-5 py-8 lg:px-8 lg:py-12">
       {/* Ad slot — kept in the layout so it feels native, not bolted on. */}
       <div className="mb-6 flex items-center justify-center gap-3 rounded-2xl border border-dashed border-[var(--line)] bg-[var(--surface-soft)] py-3 text-center font-mono text-[10px] uppercase tracking-[.12em] text-[var(--muted)]">
         <span className="size-1.5 rounded-full bg-[var(--accent)]" /> Ad space — designed to stay out of your way
@@ -206,6 +252,14 @@ export default function Sudoku() {
         </div>
         <div className="flex items-center gap-3">
           <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-center">
+            <div className="font-mono text-[9px] uppercase tracking-[.14em] text-[var(--muted)]">Lives</div>
+            <div className="mt-1 flex items-center justify-center gap-1">
+              {Array.from({ length: MAX_LIVES }, (_, i) => (
+                <Heart key={i} full={i < lives} popping={shaking && i === lives} />
+              ))}
+            </div>
+          </div>
+          <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-center">
             <div className="font-mono text-[9px] uppercase tracking-[.14em] text-[var(--muted)]">Time</div>
             <div className="font-display text-xl font-bold tabular-nums">{formatTime(seconds)}</div>
           </div>
@@ -217,7 +271,7 @@ export default function Sudoku() {
       </div>
 
       {/* Difficulty tabs */}
-      <div className="mb-6 inline-flex rounded-full border border-[var(--line)] bg-[var(--surface)] p-1 text-sm font-bold">
+      <div className="anim-outline anim-outline-slow mb-6 inline-flex rounded-full border border-[var(--line)] bg-[var(--surface)] p-1 text-sm font-bold">
         {DIFFICULTIES.map((d) => (
           <button
             key={d}
@@ -232,7 +286,7 @@ export default function Sudoku() {
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
         {/* Board */}
-        <div className="relative mx-auto w-full max-w-[540px]">
+        <div className={`anim-outline relative mx-auto w-full max-w-[540px] rounded-2xl ${shaking ? 'damage-shake' : ''}`}>
           <div
             ref={boardRef}
             className="grid aspect-square grid-cols-9 overflow-hidden rounded-2xl border-2 border-[var(--ink)] bg-[var(--surface)] shadow-[0_20px_60px_rgba(0,0,0,.12)]"
@@ -242,7 +296,8 @@ export default function Sudoku() {
               const c = colOf(index)
               const given = puzzle.given[index]
               const isSelected = selected === index
-              const inConflict = conflicts.has(index)
+              const isWrong = value !== 0 && !given && value !== puzzle.solution[index]
+              const bad = conflicts.has(index) || isWrong
               const sameUnit =
                 selected !== null &&
                 (rowOf(selected) === r || colOf(selected) === c || boxOf(selected) === boxOf(index))
@@ -255,11 +310,11 @@ export default function Sudoku() {
               if (sameUnit) bg = 'bg-[var(--surface-soft)]'
               if (sameValue) bg = 'bg-[color:var(--accent)]/15'
               if (isSelected) bg = 'bg-[color:var(--accent)]/25'
-              if (inConflict) bg = 'bg-red-500/25'
+              if (bad) bg = 'bg-red-500/25'
 
               let text = 'text-[var(--ink)]'
               if (!given) text = 'text-[var(--accent)]'
-              if (inConflict) text = 'text-red-500'
+              if (bad) text = 'text-red-500'
 
               return (
                 <button
@@ -284,14 +339,30 @@ export default function Sudoku() {
             })}
           </div>
 
+          {/* Damage vignette — remounts on every hit to retrigger the flash. */}
+          {damageTick > 0 && <div key={damageTick} className="damage-flash pointer-events-none absolute inset-0 rounded-2xl" />}
+
           {won && (
             <div className="absolute inset-0 grid place-items-center rounded-2xl bg-[color:var(--canvas)]/80 backdrop-blur-sm">
               <div className="rounded-2xl border border-[var(--accent)] bg-[var(--surface)] px-8 py-7 text-center shadow-[0_20px_60px_var(--glow)]">
                 <p className="font-mono text-[10px] uppercase tracking-[.16em] text-[var(--accent)]">Solved</p>
                 <p className="mt-2 font-display text-3xl font-bold tracking-[-.05em]">Nice reset! 🎉</p>
-                <p className="mt-2 text-sm text-[var(--muted)]">{difficulty} · {formatTime(seconds)}</p>
+                <p className="mt-2 text-sm text-[var(--muted)]">{difficulty} · {formatTime(seconds)} · {lives}/{MAX_LIVES} lives left</p>
                 <button onClick={() => newGame(difficulty)} className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-[var(--accent-deep)]">
                   Play again <ArrowIcon />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {lost && (
+            <div className="absolute inset-0 grid place-items-center rounded-2xl bg-[color:var(--canvas)]/85 backdrop-blur-sm">
+              <div className="rounded-2xl border border-[var(--accent)] bg-[var(--surface)] px-8 py-7 text-center shadow-[0_20px_60px_var(--glow)]">
+                <p className="font-mono text-[10px] uppercase tracking-[.16em] text-[var(--accent)]">Game over</p>
+                <p className="mt-2 font-display text-3xl font-bold tracking-[-.05em]">The shark got you 🦈</p>
+                <p className="mt-2 text-sm text-[var(--muted)]">Three wrong numbers — better luck next dive.</p>
+                <button onClick={() => newGame(difficulty)} className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-[var(--accent-deep)]">
+                  Try again <ArrowIcon />
                 </button>
               </div>
             </div>
@@ -308,7 +379,7 @@ export default function Sudoku() {
                 <button
                   key={n}
                   onClick={() => selected !== null && setCellValue(selected, n)}
-                  disabled={selected === null || done}
+                  disabled={selected === null || done || locked}
                   className={`relative grid aspect-[4/3] place-items-center rounded-xl border border-[var(--line)] bg-[var(--surface)] font-display text-2xl font-bold transition enabled:hover:border-[var(--accent)] enabled:hover:-translate-y-0.5 disabled:opacity-30 ${done ? 'text-[var(--muted)]' : 'text-[var(--ink)]'}`}
                 >
                   {n}
@@ -323,23 +394,23 @@ export default function Sudoku() {
             <button onClick={() => setNotesMode((v) => !v)} className={`rounded-xl border px-3 py-2.5 transition ${notesMode ? 'border-[var(--accent)] bg-[color:var(--accent)]/15 text-[var(--accent)]' : 'border-[var(--line)] bg-[var(--surface)] hover:border-[var(--accent)]'}`}>
               Notes {notesMode ? 'ON' : 'OFF'}
             </button>
-            <button onClick={() => selected !== null && eraseCell(selected)} disabled={selected === null} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 transition enabled:hover:border-[var(--accent)] disabled:opacity-40">
+            <button onClick={() => selected !== null && eraseCell(selected)} disabled={selected === null || locked} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 transition enabled:hover:border-[var(--accent)] disabled:opacity-40">
               Erase
             </button>
-            <button onClick={undo} disabled={history.length === 0} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 transition enabled:hover:border-[var(--accent)] disabled:opacity-40">
+            <button onClick={undo} disabled={history.length === 0 || locked} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 transition enabled:hover:border-[var(--accent)] disabled:opacity-40">
               Undo
             </button>
-            <button onClick={hint} disabled={selected === null || won} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 transition enabled:hover:border-[var(--accent)] disabled:opacity-40">
+            <button onClick={hint} disabled={selected === null || locked} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2.5 transition enabled:hover:border-[var(--accent)] disabled:opacity-40">
               Hint
             </button>
           </div>
 
-          <button onClick={() => newGame(difficulty)} className="rounded-xl bg-[var(--accent)] px-3 py-3 text-sm font-extrabold text-white shadow-[0_12px_28px_var(--glow)] transition hover:-translate-y-0.5 hover:bg-[var(--accent-deep)]">
+          <button onClick={() => newGame(difficulty)} className="anim-outline rounded-xl bg-[var(--accent)] px-3 py-3 text-sm font-extrabold text-white shadow-[0_12px_28px_var(--glow)] transition hover:-translate-y-0.5 hover:bg-[var(--accent-deep)]">
             New game
           </button>
 
           <p className="rounded-xl border border-[var(--line)] bg-[var(--surface-soft)] px-4 py-3 text-xs leading-5 text-[var(--muted)]">
-            <span className="font-bold text-[var(--ink)]">Tip:</span> click a cell, then type a number (1–9). Use arrow keys to move, Backspace to erase.
+            <span className="font-bold text-[var(--ink)]">Tip:</span> click a cell, then type a number (1–9). Arrow keys move, Backspace erases. Wrong numbers cost a life — three bites and the shark gets you. 🦈
           </p>
         </div>
       </div>

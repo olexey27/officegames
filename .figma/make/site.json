@@ -1,5 +1,6 @@
 {
-  "description": "Engage in fun and challenging Sudoku games on a modern, user-friendly platform designed for office breaks, accessible on both desktop and mobile.",
+  "title": "SharksGames — Quick browser games for better breaks",
+  "description": "SharksGames: bite-sized browser games like Sudoku for quick breaks — no downloads, no accounts, playable on desktop and mobile.",
   "robots": {
     "index": false
   },

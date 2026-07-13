@@ -90,3 +90,159 @@ body {
 .shimmer-line {
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
+
+/* ---------- Hero "screen" scene ---------- */
+
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-16px) rotate(2deg); }
+}
+
+@keyframes hero-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.12); }
+}
+
+/* Perspective grid floor scrolling toward the viewer */
+@keyframes grid-rush {
+  from { background-position-y: 0; }
+  to { background-position-y: 44px; }
+}
+
+.hero-grid-floor {
+  position: absolute;
+  inset: 55% -30% -12% -30%;
+  transform: perspective(420px) rotateX(58deg);
+  transform-origin: top center;
+  background-image:
+    linear-gradient(rgba(255, 75, 77, 0.34) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(255, 75, 77, 0.34) 1.5px, transparent 1.5px);
+  background-size: 44px 44px;
+  animation: grid-rush 1.6s linear infinite;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 32%);
+  mask-image: linear-gradient(to bottom, transparent, #000 32%);
+}
+
+@keyframes scanline-move {
+  from { transform: translateY(-120%); }
+  to { transform: translateY(1400%); }
+}
+
+.hero-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 9%;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: scanline-move 5.5s linear infinite;
+}
+
+@keyframes bit-float {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)) scale(1); opacity: 0.85; }
+  50% { transform: translateY(-14px) rotate(calc(var(--tilt, 0deg) + 8deg)) scale(1.06); opacity: 1; }
+}
+
+.hero-bit {
+  animation: bit-float 4s ease-in-out infinite;
+}
+
+.hero-shark {
+  animation: hero-float 5.2s ease-in-out infinite;
+  filter: drop-shadow(0 18px 42px rgba(255, 75, 77, 0.38));
+}
+
+.hero-shark-glow {
+  animation: hero-glow 4.4s ease-in-out infinite;
+}
+
+/* ---------- Animated outline (game mode chrome) ---------- */
+
+@property --spin {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes outline-spin {
+  to { --spin: 360deg; }
+}
+
+.anim-outline {
+  position: relative;
+}
+
+.anim-outline::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--spin),
+    transparent 0%,
+    var(--accent) 12%,
+    transparent 26%,
+    transparent 55%,
+    var(--glow) 70%,
+    transparent 82%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: outline-spin 4.5s linear infinite;
+  pointer-events: none;
+}
+
+.anim-outline-slow::before {
+  animation-duration: 8s;
+}
+
+/* ---------- Sudoku damage feedback ---------- */
+
+@keyframes damage-shake {
+  0%, 100% { transform: translate(0, 0); }
+  15% { transform: translate(-7px, 2px); }
+  30% { transform: translate(6px, -3px); }
+  45% { transform: translate(-5px, -2px); }
+  60% { transform: translate(4px, 3px); }
+  75% { transform: translate(-3px, 1px); }
+  90% { transform: translate(2px, -1px); }
+}
+
+.damage-shake {
+  animation: damage-shake 0.45s ease-in-out;
+}
+
+@keyframes damage-flash {
+  0% { opacity: 0; }
+  18% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.damage-flash {
+  background:
+    radial-gradient(ellipse at center, transparent 42%, rgba(233, 49, 49, 0.55) 100%);
+  animation: damage-flash 0.55s ease-out forwards;
+}
+
+@keyframes heart-lost {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.5) rotate(-12deg); }
+  100% { transform: scale(1); }
+}
+
+.heart-lost {
+  animation: heart-lost 0.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid-floor,
+  .hero-scanline,
+  .hero-bit,
+  .hero-shark,
+  .hero-shark-glow,
+  .anim-outline::before {
+    animation: none;
+  }
+}

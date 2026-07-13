@@ -37,9 +37,9 @@ export default function Layout() {
       <div className="min-h-screen overflow-x-hidden bg-[var(--canvas)] text-[var(--ink)] transition-colors duration-300">
         <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[color:var(--canvas)]/90 backdrop-blur-xl">
           <div className="mx-auto flex h-[68px] max-w-[1240px] items-center justify-between px-5 lg:px-8">
-            <Link to="/" className="group flex items-center gap-2.5" aria-label="OfficeGames home">
-              <span className="grid size-9 place-items-center rounded-[11px] bg-[var(--accent)] font-display text-sm font-bold text-white shadow-[0_7px_20px_var(--glow)] transition-transform duration-200 group-hover:-rotate-6">OG</span>
-              <span className="font-display text-xl font-bold tracking-[-0.06em]">Office<span className="text-[var(--accent)]">Games</span></span>
+            <Link to="/" className="group flex items-center gap-2.5" aria-label="SharksGames home">
+              <span className="grid size-9 place-items-center rounded-[11px] bg-[var(--accent)] font-display text-sm font-bold text-white shadow-[0_7px_20px_var(--glow)] transition-transform duration-200 group-hover:-rotate-6">SG</span>
+              <span className="font-display text-xl font-bold tracking-[-0.06em]">Sharks<span className="text-[var(--accent)]">Games</span></span>
             </Link>
 
             <nav className="hidden items-center gap-7 text-sm font-semibold md:flex">
@@ -62,7 +62,7 @@ export default function Layout() {
 
         <Outlet />
 
-        <footer className="bg-[var(--surface)]"><div className="mx-auto flex max-w-[1240px] flex-col gap-7 px-5 py-10 lg:flex-row lg:items-end lg:justify-between lg:px-8"><div><Link to="/" className="font-display text-xl font-bold tracking-[-0.06em]">Office<span className="text-[var(--accent)]">Games</span></Link><p className="mt-2 max-w-sm text-xs leading-5 text-[var(--muted)]">A small European browser-games corner for better workday breaks.</p></div><div className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-[var(--muted)]"><a href="#privacy" className="hover:text-[var(--accent)]">Privacy</a><a href="#cookies" className="hover:text-[var(--accent)]">Cookies</a><a href="#imprint" className="hover:text-[var(--accent)]">Imprint</a><a href="#contact" className="hover:text-[var(--accent)]">Contact</a></div><p className="font-mono text-[9px] uppercase tracking-[.13em] text-[var(--muted)]">© 2026 OfficeGames</p></div></footer>
+        <footer className="bg-[var(--surface)]"><div className="mx-auto flex max-w-[1240px] flex-col gap-7 px-5 py-10 lg:flex-row lg:items-end lg:justify-between lg:px-8"><div><Link to="/" className="font-display text-xl font-bold tracking-[-0.06em]">Sharks<span className="text-[var(--accent)]">Games</span></Link><p className="mt-2 max-w-sm text-xs leading-5 text-[var(--muted)]">A small European browser-games corner for better workday breaks.</p></div><div className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-[var(--muted)]"><a href="#privacy" className="hover:text-[var(--accent)]">Privacy</a><a href="#cookies" className="hover:text-[var(--accent)]">Cookies</a><a href="#imprint" className="hover:text-[var(--accent)]">Imprint</a><a href="#contact" className="hover:text-[var(--accent)]">Contact</a></div><p className="font-mono text-[9px] uppercase tracking-[.13em] text-[var(--muted)]">© 2026 SharksGames</p></div></footer>
       </div>
     </DarkModeContext.Provider>
   )
