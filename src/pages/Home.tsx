@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowIcon, GridMark } from '../components/icons'
-import HeroScreen from '../components/HeroScreen'
+import ArcadeBackdrop, { FloatingShark } from '../components/ArcadeBackdrop'
 import type { Difficulty } from '../games/sudoku/engine'
 
 const difficulties: { name: Difficulty; note: string; time: string; cells: string }[] = [
@@ -22,26 +22,28 @@ export default function Home() {
         </div>
       </div>
 
-      <section id="top" className="office-grid relative isolate overflow-hidden border-b border-[var(--line)]">
-        <div className="absolute -right-24 top-[-120px] -z-10 size-[510px] rounded-full bg-[var(--accent)] opacity-[.08] blur-3xl" />
-        <div className="absolute right-[12%] top-24 -z-10 hidden size-64 rotate-12 rounded-[42px] border border-[var(--accent)] opacity-20 lg:block" />
-        <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-12 lg:grid-cols-[1.1fr_.9fr] lg:px-8 lg:py-16">
+      <section id="top" className="relative isolate overflow-hidden border-b border-[#232327] bg-[#0b0b0e] text-white">
+        <ArcadeBackdrop />
+
+        {/* Live indicator — simply in the corner */}
+        <span className="absolute right-5 top-5 z-10 inline-flex items-center gap-1.5 rounded-full bg-[#ff4b4d] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white lg:right-8">
+          <span className="size-1.5 animate-pulse rounded-full bg-white" /> 01 live
+        </span>
+
+        <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-14 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-20">
           <div className="max-w-[700px]">
-            <p className="mb-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[.18em] text-[var(--accent)]"><span className="h-px w-8 bg-current" /> Better breaks begin here</p>
-            <h1 className="font-display text-[clamp(3.2rem,7vw,6.5rem)] font-bold leading-[.87] tracking-[-.075em]">Press pause.<br /><span className="text-[var(--accent)]">Play smart.</span></h1>
-            <p className="mt-7 max-w-[545px] text-base leading-7 text-[var(--muted)] sm:text-lg">Tiny games for the in-between moments: no downloads, no accounts, just a clearer head before the next thing on your calendar.</p>
+            <p className="mb-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[.18em] text-[#ff4b4d]"><span className="h-px w-8 bg-current" /> Better breaks begin here</p>
+            <h1 className="font-display text-[clamp(3.2rem,7vw,6.5rem)] font-bold leading-[.87] tracking-[-.075em]">Press pause.<br /><span className="text-[#ff4b4d]">Play smart.</span></h1>
+            <p className="mt-7 max-w-[545px] text-base leading-7 text-[#b3b2b7] sm:text-lg">Tiny games for the in-between moments: no downloads, no accounts, just a clearer head before the next thing on your calendar.</p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
-              <a href="#games" className="inline-flex items-center gap-3 rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-extrabold text-white shadow-[0_12px_28px_var(--glow)] transition hover:-translate-y-0.5 hover:bg-[var(--accent-deep)]">Explore games <ArrowIcon /></a>
-              <span className="font-mono text-[10px] uppercase tracking-[.13em] text-[var(--muted)]">Made for a 5-minute reset</span>
+              <a href="#games" className="inline-flex items-center gap-3 rounded-full bg-[#ff4b4d] px-5 py-3 text-sm font-extrabold text-white shadow-[0_12px_28px_rgba(255,75,77,.35)] transition hover:-translate-y-0.5 hover:bg-[#d83138]">Explore games <ArrowIcon /></a>
+              <span className="font-mono text-[10px] uppercase tracking-[.13em] text-white/40">Made for a 5-minute reset</span>
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[460px] lg:justify-self-end">
-            <div className="absolute inset-10 rounded-[32px] bg-[var(--accent)] opacity-15 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[30px] border border-[var(--line)] bg-[var(--surface)] p-5 shadow-[0_24px_70px_rgba(0,0,0,.13)] sm:p-6">
-              <div className="mb-4 flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Sharks arcade — now open</span><span className="rounded-full bg-[var(--accent)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white">01 live</span></div>
-              <HeroScreen />
-            </div>
+          {/* The shark floats free — no window, no card */}
+          <div className="relative mx-auto w-full max-w-[520px] lg:justify-self-end">
+            <FloatingShark />
           </div>
         </div>
       </section>

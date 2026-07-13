@@ -146,6 +146,17 @@ body {
   animation: bit-float 4s ease-in-out infinite;
 }
 
+/* Bits softly appear and disappear at random spots across the backdrop. */
+@keyframes bit-fade {
+  0%, 100% { opacity: 0; }
+  22%, 72% { opacity: 0.8; }
+}
+
+.hero-bit-fade {
+  opacity: 0.6;
+  animation: bit-fade 8s ease-in-out infinite;
+}
+
 .hero-shark {
   animation: hero-float 5.2s ease-in-out infinite;
   filter: drop-shadow(0 18px 42px rgba(255, 75, 77, 0.38));
@@ -240,6 +251,7 @@ body {
   .hero-grid-floor,
   .hero-scanline,
   .hero-bit,
+  .hero-bit-fade,
   .hero-shark,
   .hero-shark-glow,
   .anim-outline::before {
