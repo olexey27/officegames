@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { ArrowIcon, GridMark } from '../components/icons'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowIcon, GridMark, TileMark } from '../components/icons'
 import ArcadeBackdrop, { FloatingShark } from '../components/ArcadeBackdrop'
 import type { Difficulty } from '../games/sudoku/engine'
 
@@ -27,7 +27,7 @@ export default function Home() {
 
         {/* Live indicator — simply in the corner */}
         <span className="absolute right-5 top-5 z-10 inline-flex items-center gap-1.5 rounded-full bg-[#ff4b4d] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white lg:right-8">
-          <span className="size-1.5 animate-pulse rounded-full bg-white" /> 01 live
+          <span className="size-1.5 animate-pulse rounded-full bg-white" /> 02 live
         </span>
 
         <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-14 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-20">
@@ -51,16 +51,32 @@ export default function Home() {
       <section id="games" className="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-24">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-5"><div><p className="font-mono text-[10px] uppercase tracking-[.16em] text-[var(--accent)]">The games shelf</p><h2 className="mt-2 font-display text-4xl font-bold tracking-[-.06em] sm:text-5xl">Pick your pause.</h2></div><p className="max-w-xs text-sm leading-6 text-[var(--muted)]">A deliberately small collection. Because decision fatigue is not a game.</p></div>
 
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_310px]">
-          <article className="group relative overflow-hidden rounded-[26px] border border-[var(--line)] bg-[var(--surface)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)] sm:p-7">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-[1fr_1fr_280px]">
+          <article className="group relative overflow-hidden rounded-[26px] border border-[var(--line)] bg-[var(--surface)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)] sm:p-6">
             <div className="absolute right-0 top-0 h-1 w-36 shimmer-line opacity-80" />
-            <div className="grid gap-7 sm:grid-cols-[154px_1fr] sm:items-center">
-              <div className="grid aspect-square place-items-center rounded-[22px] bg-[var(--accent)] text-white shadow-[0_16px_40px_var(--glow)]"><GridMark /></div>
-              <div><div className="flex flex-wrap items-center gap-3"><h3 className="font-display text-3xl font-bold tracking-[-.06em]">Sudoku</h3><span className="rounded-full border border-[var(--line)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.12em] text-[var(--muted)]">Focus game</span></div><p className="mt-3 max-w-lg text-sm leading-6 text-[var(--muted)]">One grid. Nine digits. A satisfying excuse to stop thinking about emails for a moment.</p><a href="#choose" className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[var(--accent)] transition group-hover:gap-3">Choose difficulty <ArrowIcon /></a></div>
+            <div className="flex h-full flex-col gap-5">
+              <div className="grid size-[92px] place-items-center rounded-[22px] bg-[var(--accent)] text-white shadow-[0_16px_40px_var(--glow)]"><GridMark /></div>
+              <div className="flex flex-1 flex-col">
+                <div className="flex flex-wrap items-center gap-3"><h3 className="font-display text-3xl font-bold tracking-[-.06em]">Sudoku</h3><span className="rounded-full border border-[var(--line)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.12em] text-[var(--muted)]">Focus game</span></div>
+                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">One grid. Nine digits. Three lives — don&apos;t let the shark bite.</p>
+                <a href="#choose" className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-extrabold text-[var(--accent)] transition group-hover:gap-3">Choose difficulty <ArrowIcon /></a>
+              </div>
             </div>
           </article>
 
-          <aside className="flex min-h-[190px] flex-col justify-between rounded-[26px] border border-dashed border-[var(--line)] bg-[var(--surface-soft)] p-6"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Up next</span><div><p className="font-display text-2xl font-bold tracking-[-.05em]">More good<br />distractions.</p><p className="mt-2 text-xs leading-5 text-[var(--muted)]">Word, logic and quick-fire games are being lined up.</p></div><span className="font-mono text-[10px] text-[var(--accent)]">02 / IN DEVELOPMENT</span></aside>
+          <article className="group relative overflow-hidden rounded-[26px] border border-[var(--line)] bg-[var(--surface)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)] sm:p-6">
+            <div className="absolute right-0 top-0 h-1 w-36 shimmer-line opacity-80" />
+            <div className="flex h-full flex-col gap-5">
+              <div className="grid size-[92px] place-items-center rounded-[22px] bg-[var(--accent)] text-white shadow-[0_16px_40px_var(--glow)]"><TileMark /></div>
+              <div className="flex flex-1 flex-col">
+                <div className="flex flex-wrap items-center gap-3"><h3 className="font-display text-3xl font-bold tracking-[-.06em]">2048</h3><span className="rounded-full border border-[var(--line)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.12em] text-[var(--muted)]">Merge game</span></div>
+                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">Slide, merge, double. Deceptively simple — dangerously moreish.</p>
+                <Link to="/2048" className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-extrabold text-[var(--accent)] transition group-hover:gap-3">Play now <ArrowIcon /></Link>
+              </div>
+            </div>
+          </article>
+
+          <aside className="flex min-h-[190px] flex-col justify-between rounded-[26px] border border-dashed border-[var(--line)] bg-[var(--surface-soft)] p-6"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Up next</span><div><p className="font-display text-2xl font-bold tracking-[-.05em]">More good<br />distractions.</p><p className="mt-2 text-xs leading-5 text-[var(--muted)]">Word, logic and quick-fire games are being lined up.</p></div><span className="font-mono text-[10px] text-[var(--accent)]">03 / IN DEVELOPMENT</span></aside>
         </div>
       </section>
 

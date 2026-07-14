@@ -10,3 +10,6 @@ export function ArrowIcon() {
 export function GridMark() {
   return <svg viewBox="0 0 48 48" aria-hidden="true" className="size-12"><rect x="2" y="2" width="44" height="44" rx="10" fill="currentColor" /><path d="M16 8v32M32 8v32M8 16h32M8 32h32" stroke="white" strokeWidth="2.5" /><path d="M16 8v32M32 8v32M8 16h32M8 32h32" stroke="white" strokeOpacity=".35" strokeWidth="1" /></svg>
 }
+export function TileMark() {
+  return <svg viewBox="0 0 48 48" aria-hidden="true" className="size-12"><rect x="2" y="2" width="44" height="44" rx="10" fill="currentColor" /><rect x="8" y="8" width="15" height="15" rx="4" fill="white" fillOpacity=".4" /><rect x="25" y="8" width="15" height="15" rx="4" fill="white" fillOpacity=".65" /><rect x="8" y="25" width="15" height="15" rx="4" fill="white" fillOpacity=".85" /><rect x="25" y="25" width="15" height="15" rx="4" fill="white" /><text x="32.5" y="36" textAnchor="middle" fontFamily="inherit" fontWeight="700" fontSize="9" fill="currentColor">2k</text></svg>
+}

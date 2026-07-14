@@ -237,6 +237,29 @@ body {
   animation: damage-flash 0.55s ease-out forwards;
 }
 
+/* ---------- 2048 tiles ---------- */
+
+@keyframes tile-pop-in {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.tile-new {
+  animation: tile-pop-in 0.16s ease-out backwards;
+  animation-delay: 0.09s;
+}
+
+@keyframes tile-merge-pop {
+  0% { transform: scale(1); }
+  55% { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+
+.tile-merged {
+  animation: tile-merge-pop 0.2s ease-out;
+  animation-delay: 0.09s;
+}
+
 @keyframes heart-lost {
   0% { transform: scale(1); }
   35% { transform: scale(1.5) rotate(-12deg); }
@@ -254,7 +277,9 @@ body {
   .hero-bit-fade,
   .hero-shark,
   .hero-shark-glow,
-  .anim-outline::before {
+  .anim-outline::before,
+  .tile-new,
+  .tile-merged {
     animation: none;
   }
 }
