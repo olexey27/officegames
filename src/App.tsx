@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import Game2048 from './pages/Game2048'
 import Home from './pages/Home'
+import Memory from './pages/Memory'
 import Sudoku from './pages/Sudoku'
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sudoku" element={<Sudoku />} />
         <Route path="/2048" element={<Game2048 />} />
+        <Route path="/memory" element={<Memory />} />
       </Route>
     </Routes>
   )
