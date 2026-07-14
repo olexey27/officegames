@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import FullscreenButton from '../components/FullscreenButton'
 import { ArrowIcon } from '../components/icons'
 import { buildDeck, colsFor, pairsFor, timeLimitFor, TOTAL_LEVELS } from '../games/memory/engine'
 
@@ -126,6 +127,7 @@ export default function Memory() {
             <div className="font-mono text-[9px] uppercase tracking-[.14em] text-[var(--muted)]">Pairs</div>
             <div className="font-display text-xl font-bold tabular-nums">{matched.size / 2}/{pairsFor(level)}</div>
           </div>
+          <FullscreenButton />
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowIcon, CardsMark, GridMark, TileMark } from '../components/icons'
+import { ArrowIcon, CardsMark, GridMark, MineMark, TileMark } from '../components/icons'
 import ArcadeBackdrop, { FloatingShark } from '../components/ArcadeBackdrop'
 import type { Difficulty } from '../games/sudoku/engine'
 
@@ -27,7 +27,7 @@ export default function Home() {
 
         {/* Live indicator — simply in the corner */}
         <span className="absolute right-5 top-5 z-10 inline-flex items-center gap-1.5 rounded-full bg-[#ff4b4d] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white lg:right-8">
-          <span className="size-1.5 animate-pulse rounded-full bg-white" /> 03 live
+          <span className="size-1.5 animate-pulse rounded-full bg-white" /> 04 live
         </span>
 
         <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-14 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-20">
@@ -88,7 +88,19 @@ export default function Home() {
             </div>
           </article>
 
-          <aside className="flex min-h-[190px] flex-col justify-between rounded-[26px] border border-dashed border-[var(--line)] bg-[var(--surface-soft)] p-6"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Up next</span><div><p className="font-display text-2xl font-bold tracking-[-.05em]">More good<br />distractions.</p><p className="mt-2 text-xs leading-5 text-[var(--muted)]">Word, logic and quick-fire games are being lined up.</p></div><span className="font-mono text-[10px] text-[var(--accent)]">04 / IN DEVELOPMENT</span></aside>
+          <article className="group relative overflow-hidden rounded-[26px] border border-[var(--line)] bg-[var(--surface)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)] sm:p-6">
+            <div className="absolute right-0 top-0 h-1 w-36 shimmer-line opacity-80" />
+            <div className="flex h-full flex-col gap-5">
+              <div className="grid size-[92px] place-items-center rounded-[22px] bg-[var(--accent)] text-white shadow-[0_16px_40px_var(--glow)]"><MineMark /></div>
+              <div className="flex flex-1 flex-col">
+                <div className="flex flex-wrap items-center gap-3"><h3 className="font-display text-3xl font-bold tracking-[-.06em]">Minesweeper</h3><span className="rounded-full border border-[var(--line)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.12em] text-[var(--muted)]">Logic game</span></div>
+                <p className="mt-3 text-sm leading-6 text-[var(--muted)]">Clear the board, dodge the mines. One wrong click goes boom.</p>
+                <Link to="/minesweeper" className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-extrabold text-[var(--accent)] transition group-hover:gap-3">Play now <ArrowIcon /></Link>
+              </div>
+            </div>
+          </article>
+
+          <aside className="flex flex-wrap items-center justify-between gap-4 rounded-[26px] border border-dashed border-[var(--line)] bg-[var(--surface-soft)] px-6 py-5 md:col-span-2 lg:col-span-4"><div className="flex items-center gap-4"><span className="font-mono text-[10px] uppercase tracking-[.15em] text-[var(--muted)]">Up next</span><p className="font-display text-xl font-bold tracking-[-.05em]">More good distractions.</p><p className="hidden text-xs leading-5 text-[var(--muted)] sm:block">Word, logic and quick-fire games are being lined up.</p></div><span className="font-mono text-[10px] text-[var(--accent)]">05 / IN DEVELOPMENT</span></aside>
         </div>
       </section>
 

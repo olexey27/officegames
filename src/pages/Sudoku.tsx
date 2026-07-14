@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import FullscreenButton from '../components/FullscreenButton'
 import { ArrowIcon } from '../components/icons'
 import {
   boxOf,
@@ -267,6 +268,7 @@ export default function Sudoku() {
             <div className="font-mono text-[9px] uppercase tracking-[.14em] text-[var(--muted)]">Filled</div>
             <div className="font-display text-xl font-bold tabular-nums">{filledCount}/81</div>
           </div>
+          <FullscreenButton />
         </div>
       </div>
 

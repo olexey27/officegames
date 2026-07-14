@@ -1,6 +1,6 @@
 {
   "title": "SharksGames — Quick browser games for better breaks",
-  "description": "SharksGames: bite-sized browser games like Sudoku, 2048 and Memory for quick breaks — no downloads, no accounts, playable on desktop and mobile.",
+  "description": "SharksGames: bite-sized browser games like Sudoku, 2048, Memory and Minesweeper for quick breaks — no downloads, no accounts, playable on desktop and mobile.",
   "robots": {
     "index": false
   },

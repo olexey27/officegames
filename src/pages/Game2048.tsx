@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import FullscreenButton from '../components/FullscreenButton'
 import { ArrowIcon } from '../components/icons'
 import {
   canMove,
@@ -151,6 +152,7 @@ export default function Game2048() {
             <div className="font-mono text-[9px] uppercase tracking-[.14em] text-[var(--muted)]">Best</div>
             <div className="font-display text-xl font-bold tabular-nums">{best}</div>
           </div>
+          <FullscreenButton />
         </div>
       </div>
 

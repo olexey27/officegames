@@ -209,6 +209,54 @@ body {
   animation-duration: 8s;
 }
 
+/* ---------- Minesweeper explosion ---------- */
+
+@keyframes explosion-flash {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.explosion-flash {
+  background: radial-gradient(circle at center, rgba(255, 214, 102, 0.95) 0%, rgba(255, 122, 69, 0.85) 30%, rgba(233, 49, 49, 0.6) 55%, transparent 80%);
+  animation: explosion-flash 1.1s ease-out forwards;
+}
+
+@keyframes explosion-boom {
+  0% { transform: scale(0.2) rotate(-18deg); opacity: 0; }
+  18% { transform: scale(1.6) rotate(5deg); opacity: 1; }
+  55% { transform: scale(1.3) rotate(-2deg); opacity: 1; }
+  100% { transform: scale(3) rotate(3deg); opacity: 0; }
+}
+
+.explosion-boom {
+  animation: explosion-boom 1.1s ease-out forwards;
+}
+
+@keyframes explosion-bit {
+  0% { transform: scale(0); opacity: 0; }
+  25% { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(0.6) translateY(-40px); opacity: 0; }
+}
+
+.explosion-bit {
+  animation: explosion-bit 1s ease-out forwards;
+}
+
+@keyframes explosion-shake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-12px, 6px); }
+  25% { transform: translate(10px, -8px); }
+  40% { transform: translate(-9px, -5px); }
+  55% { transform: translate(8px, 7px); }
+  70% { transform: translate(-6px, 3px); }
+  85% { transform: translate(4px, -2px); }
+}
+
+.explosion-shake {
+  animation: explosion-shake 0.7s ease-in-out;
+}
+
 /* ---------- Memory cards ---------- */
 
 .memory-card {
@@ -341,7 +389,11 @@ body {
   .tile-merged,
   .memory-inner.is-matched,
   .trophy-pop,
-  .trophy-glow {
+  .trophy-glow,
+  .explosion-flash,
+  .explosion-boom,
+  .explosion-bit,
+  .explosion-shake {
     animation: none;
   }
 
