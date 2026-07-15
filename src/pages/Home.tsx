@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowIcon, CardsMark, GridMark, MineMark, TileMark } from '../components/icons'
+import { ArrowIcon } from '../components/icons'
+import CabinetScreen, { MemoryPreview, MinesweeperPreview, Preview2048, SudokuPreview } from '../components/GamePreviews'
 import ArcadeBackdrop, { FloatingShark } from '../components/ArcadeBackdrop'
 import type { Difficulty } from '../games/sudoku/engine'
 
@@ -55,7 +56,7 @@ export default function Home() {
           <article className="group relative overflow-hidden rounded-[26px] border border-[var(--line)] bg-[var(--surface)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)] sm:p-6">
             <div className="absolute right-0 top-0 h-1 w-36 shimmer-line opacity-80" />
             <div className="flex h-full flex-col gap-5">
-              <div className="grid size-[92px] place-items-center rounded-[22px] bg-[var(--accent)] text-white shadow-[0_16px_40px_var(--glow)]"><GridMark /></div>
+              <CabinetScreen><SudokuPreview /></CabinetScreen>
               <div className="flex flex-1 flex-col">
                 <div className="flex flex-wrap items-center gap-3"><h3 className="font-display text-3xl font-bold tracking-[-.06em]">Sudoku</h3><span className="rounded-full border border-[var(--line)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.12em] text-[var(--muted)]">Focus game</span></div>
                 <p className="mt-3 text-sm leading-6 text-[var(--muted)]">One grid. Nine digits. Three lives — don&apos;t let the shark bite.</p>
@@ -67,7 +68,7 @@ export default function Home() {
           <article className="group relative overflow-hidden rounded-[26px] border border-[var(--line)] bg-[var(--surface)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)] sm:p-6">
             <div className="absolute right-0 top-0 h-1 w-36 shimmer-line opacity-80" />
             <div className="flex h-full flex-col gap-5">
-              <div className="grid size-[92px] place-items-center rounded-[22px] bg-[var(--accent)] text-white shadow-[0_16px_40px_var(--glow)]"><TileMark /></div>
+              <CabinetScreen><Preview2048 /></CabinetScreen>
               <div className="flex flex-1 flex-col">
                 <div className="flex flex-wrap items-center gap-3"><h3 className="font-display text-3xl font-bold tracking-[-.06em]">2048</h3><span className="rounded-full border border-[var(--line)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.12em] text-[var(--muted)]">Merge game</span></div>
                 <p className="mt-3 text-sm leading-6 text-[var(--muted)]">Slide, merge, double. Deceptively simple — dangerously moreish.</p>
@@ -79,7 +80,7 @@ export default function Home() {
           <article className="group relative overflow-hidden rounded-[26px] border border-[var(--line)] bg-[var(--surface)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)] sm:p-6">
             <div className="absolute right-0 top-0 h-1 w-36 shimmer-line opacity-80" />
             <div className="flex h-full flex-col gap-5">
-              <div className="grid size-[92px] place-items-center rounded-[22px] bg-[var(--accent)] text-white shadow-[0_16px_40px_var(--glow)]"><CardsMark /></div>
+              <CabinetScreen><MemoryPreview /></CabinetScreen>
               <div className="flex flex-1 flex-col">
                 <div className="flex flex-wrap items-center gap-3"><h3 className="font-display text-3xl font-bold tracking-[-.06em]">Memory</h3><span className="rounded-full border border-[var(--line)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.12em] text-[var(--muted)]">31 levels</span></div>
                 <p className="mt-3 text-sm leading-6 text-[var(--muted)]">Match pairs against the clock. Survive all 31 levels for the trophy.</p>
@@ -91,7 +92,7 @@ export default function Home() {
           <article className="group relative overflow-hidden rounded-[26px] border border-[var(--line)] bg-[var(--surface)] p-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)] sm:p-6">
             <div className="absolute right-0 top-0 h-1 w-36 shimmer-line opacity-80" />
             <div className="flex h-full flex-col gap-5">
-              <div className="grid size-[92px] place-items-center rounded-[22px] bg-[var(--accent)] text-white shadow-[0_16px_40px_var(--glow)]"><MineMark /></div>
+              <CabinetScreen><MinesweeperPreview /></CabinetScreen>
               <div className="flex flex-1 flex-col">
                 <div className="flex flex-wrap items-center gap-3"><h3 className="font-display text-3xl font-bold tracking-[-.06em]">Minesweeper</h3><span className="rounded-full border border-[var(--line)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.12em] text-[var(--muted)]">Logic game</span></div>
                 <p className="mt-3 text-sm leading-6 text-[var(--muted)]">Clear the board, dodge the mines. One wrong click goes boom.</p>
@@ -114,7 +115,27 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="how-it-works" className="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20"><div className="grid gap-8 border-b border-[var(--line)] pb-12 md:grid-cols-[1fr_2fr]"><h2 className="font-display text-4xl font-bold tracking-[-.06em]">Built for the<br /><span className="text-[var(--accent)]">in-between.</span></h2><div className="grid gap-7 sm:grid-cols-3">{[['01', 'Open', 'No sign-up, no setup.'], ['02', 'Pick', 'Find the pace that fits.'], ['03', 'Reset', 'Go back clearer than before.']].map(([number, title, text]) => <div key={number}><p className="font-mono text-[10px] text-[var(--accent)]">{number}</p><h3 className="mt-3 font-display text-xl font-bold tracking-[-.04em]">{title}</h3><p className="mt-2 text-xs leading-5 text-[var(--muted)]">{text}</p></div>)}</div></div></section>
+      <section id="how-it-works" className="mx-auto max-w-[1240px] px-5 py-16 lg:px-8 lg:py-20">
+        <div className="grid items-center gap-8 border-b border-[var(--line)] pb-12 md:grid-cols-[1fr_2fr]">
+          <h2 className="font-display text-4xl font-bold tracking-[-.06em]">Built for the<br /><span className="text-[var(--accent)]">in-between.</span></h2>
+          {/* Coin-op instruction plates — the whole manual in one line. */}
+          <div className="flex flex-wrap items-center gap-3">
+            {[
+              ['☕', 'Insert coffee'],
+              ['🕹️', 'Pick your game'],
+              ['🧠', 'Return sharper'],
+            ].map(([icon, label], index) => (
+              <div key={label} className="flex items-center gap-3">
+                {index > 0 && <span className="text-[var(--accent)]"><ArrowIcon /></span>}
+                <span className="inline-flex items-center gap-2.5 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 font-mono text-[11px] font-bold uppercase tracking-[.14em]">
+                  <span className="text-base">{icon}</span> {label}
+                </span>
+              </div>
+            ))}
+            <span className="w-full pt-1 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">No sign-up · no downloads · no leaderboard guilt</span>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
