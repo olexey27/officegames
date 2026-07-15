@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
 
 @font-face {
   font-family: 'Chakra Petch';
@@ -34,7 +35,7 @@
 
 @theme {
   --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Silkscreen', 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'DM Mono', ui-monospace, monospace;
 }
 
@@ -89,6 +90,42 @@ body {
 
 .shimmer-line {
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* ---------- Retro chrome: pixel-arcade look ---------- */
+
+/* Hard corners everywhere — the whole site is boxy, like the arcade original. */
+*,
+::before,
+::after {
+  border-radius: 0 !important;
+}
+
+/* Chunky button with a hard offset shadow that "jumps" on hover and presses
+   down on click. Uses --ink so the shadow flips with the theme. */
+.retro-btn {
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.retro-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.retro-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-btn,
+  .retro-btn:hover,
+  .retro-btn:active {
+    transition: none;
+    transform: none;
+  }
 }
 
 /* ---------- Hero "screen" scene ---------- */
