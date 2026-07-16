@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import ArcadeBackdrop, { FloatingShark } from '../components/ArcadeBackdrop'
-import CabinetScreen, { MemoryPreview, MinesweeperPreview, Preview2048, SudokuPreview } from '../components/GamePreviews'
+import CabinetScreen, { DurakPreview, MemoryPreview, MinesweeperPreview, Preview2048, SudokuPreview } from '../components/GamePreviews'
 
 const GAMES = [
   { name: 'Sudoku', to: '/sudoku', tag: 'Focus', preview: <SudokuPreview /> },
   { name: '2048', to: '/2048', tag: 'Merge', preview: <Preview2048 /> },
   { name: 'Memory', to: '/memory', tag: '31 levels', preview: <MemoryPreview /> },
   { name: 'Minesweeper', to: '/minesweeper', tag: 'Logic', preview: <MinesweeperPreview /> },
+  { name: 'Durak', to: '/durak', tag: 'Cards · vs bots', preview: <DurakPreview /> },
 ]
 
 const STEPS = [
@@ -38,7 +39,7 @@ export default function Home() {
         <div className="relative isolate min-h-[340px] overflow-hidden border-2 border-[var(--ink)] bg-[#0b0b0e] lg:min-h-[500px]">
           <ArcadeBackdrop />
           <span className="absolute right-4 top-4 z-10 inline-flex items-center gap-1.5 bg-[#ff4b4d] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white">
-            <span className="size-1.5 animate-pulse bg-white" /> 04 live
+            <span className="size-1.5 animate-pulse bg-white" /> 05 live
           </span>
           <div className="grid h-full place-items-center p-6">
             <div className="w-full max-w-[440px]"><FloatingShark /></div>

@@ -114,4 +114,19 @@ export function MinesweeperPreview() {
   )
 }
 
+export function DurakPreview() {
+  return (
+    <div className="relative h-[76px] w-[92px]">
+      <span className="absolute left-0 top-2 flex h-[64px] w-[46px] -rotate-12 flex-col items-center justify-center border-2 border-[#242321] bg-white font-display text-[11px] font-bold leading-none">
+        <span className="text-[#242321]">A</span>
+        <span className="text-base text-[#242321]">♠</span>
+      </span>
+      <span className="absolute left-10 top-0 flex h-[64px] w-[46px] rotate-12 flex-col items-center justify-center border-2 border-[#242321] bg-white font-display text-[11px] font-bold leading-none">
+        <span className="text-[#e93131]">7</span>
+        <span className="text-base text-[#e93131]">♥</span>
+      </span>
+    </div>
+  )
+}
+
 export default CabinetScreen
