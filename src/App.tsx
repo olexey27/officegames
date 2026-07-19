@@ -3,6 +3,9 @@ import Layout from './components/Layout'
 import Durak from './pages/Durak'
 import Game2048 from './pages/Game2048'
 import Home from './pages/Home'
+import Cookies from './pages/legal/Cookies'
+import Imprint from './pages/legal/Imprint'
+import Privacy from './pages/legal/Privacy'
 import Memory from './pages/Memory'
 import Minesweeper from './pages/Minesweeper'
 import Sudoku from './pages/Sudoku'
@@ -19,6 +22,9 @@ export default function App() {
         <Route path="/minesweeper" element={<Minesweeper />} />
         <Route path="/durak" element={<Durak />} />
         <Route path="/tetris" element={<Tetris />} />
+        <Route path="/imprint" element={<Imprint />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/cookies" element={<Cookies />} />
       </Route>
     </Routes>
   )

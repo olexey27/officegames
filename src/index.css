@@ -1,11 +1,29 @@
 @import 'tailwindcss';
 
+/* All fonts are self-hosted — no requests to Google or Figma servers. */
+
+@font-face {
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Silkscreen-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Silkscreen';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Silkscreen-Bold.woff2') format('woff2');
+}
+
 @font-face {
   font-family: 'Chakra Petch';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('https://static.figma.com/font/ChakraPetch-SemiBold_1') format('woff2');
+  src: url('/fonts/ChakraPetch-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
@@ -13,7 +31,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('https://static.figma.com/font/ChakraPetch-Bold_1') format('woff2');
+  src: url('/fonts/ChakraPetch-Bold.ttf') format('truetype');
 }
 
 @font-face {
@@ -21,7 +39,7 @@
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url('https://static.figma.com/font/Manrope_wght__1') format('woff2');
+  src: url('/fonts/Manrope.ttf') format('truetype');
 }
 
 @font-face {
@@ -29,7 +47,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('https://static.figma.com/font/DMMono-Medium_1') format('woff2');
+  src: url('/fonts/DMMono-Medium.ttf') format('truetype');
 }
 
 @theme {

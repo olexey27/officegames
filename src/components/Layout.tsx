@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import CookieBanner from './CookieBanner'
 import { MoonIcon, SunIcon } from './icons'
 
 // ---- Dark mode, shared across all pages and persisted to localStorage ----
@@ -83,14 +84,16 @@ export default function Layout() {
               <p className="mt-2 font-mono text-[10px] uppercase tracking-[.14em] text-white/45">▸ Insert coffee to continue</p>
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 font-display text-[10px] font-bold uppercase tracking-wide text-white/70">
-              <a href="#privacy" className="transition-colors hover:text-[#ff4b4d]">Privacy</a>
-              <a href="#cookies" className="transition-colors hover:text-[#ff4b4d]">Cookies</a>
-              <a href="#imprint" className="transition-colors hover:text-[#ff4b4d]">Imprint</a>
-              <a href="#contact" className="transition-colors hover:text-[#ff4b4d]">Contact</a>
+              <Link to="/privacy" className="transition-colors hover:text-[#ff4b4d]">Privacy</Link>
+              <Link to="/cookies" className="transition-colors hover:text-[#ff4b4d]">Cookies</Link>
+              <Link to="/imprint" className="transition-colors hover:text-[#ff4b4d]">Imprint</Link>
+              <a href="mailto:allxyog@gmail.com" className="transition-colors hover:text-[#ff4b4d]">Contact</a>
             </div>
             <p className="font-mono text-[9px] uppercase tracking-[.13em] text-white/40">© 2026 SharksGames</p>
           </div>
         </footer>
+
+        <CookieBanner />
       </div>
     </DarkModeContext.Provider>
   )
