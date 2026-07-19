@@ -311,6 +311,31 @@ body {
   animation: explosion-shake 0.7s ease-in-out;
 }
 
+/* ---------- Four in a Row ---------- */
+
+/* Discs stay round — deliberate exception to the sharp-corner theme. */
+.round-disc {
+  border-radius: 9999px !important;
+}
+
+@keyframes disc-drop {
+  from { transform: translateY(calc(-108% * var(--rows, 6))); }
+  to { transform: none; }
+}
+
+.disc-drop {
+  animation: disc-drop 0.35s cubic-bezier(0.55, 0, 0.7, 0.6);
+}
+
+@keyframes disc-win {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.7); }
+}
+
+.disc-win {
+  animation: disc-win 0.9s ease-in-out infinite;
+}
+
 /* ---------- Memory cards ---------- */
 
 .memory-card {
@@ -447,7 +472,9 @@ body {
   .explosion-flash,
   .explosion-boom,
   .explosion-bit,
-  .explosion-shake {
+  .explosion-shake,
+  .disc-drop,
+  .disc-win {
     animation: none;
   }
 

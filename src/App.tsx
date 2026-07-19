@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
 import ChessPage from './pages/Chess'
 import Durak from './pages/Durak'
+import FourInARow from './pages/FourInARow'
 import Game2048 from './pages/Game2048'
 import Home from './pages/Home'
 import Cookies from './pages/legal/Cookies'
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/durak" element={<Durak />} />
         <Route path="/tetris" element={<Tetris />} />
         <Route path="/chess" element={<ChessPage />} />
+        <Route path="/four-in-a-row" element={<FourInARow />} />
         <Route path="/imprint" element={<Imprint />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/cookies" element={<Cookies />} />

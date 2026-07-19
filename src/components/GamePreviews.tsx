@@ -170,4 +170,28 @@ export function ChessPreview() {
   )
 }
 
+export function FourInARowPreview() {
+  // Mini 5x4 board with a red diagonal about to connect.
+  const cells = [
+    0, 0, 0, 0, 0,
+    0, 0, 0, 1, 0,
+    0, 2, 1, 2, 0,
+    2, 1, 2, 1, 0,
+  ]
+  return (
+    <div className="grid grid-cols-5 gap-1 border-2 border-white/25 bg-[#151518] p-1.5">
+      {cells.map((cell, i) => (
+        <span
+          key={i}
+          className="round-disc size-5"
+          style={{
+            background: cell === 1 ? '#ff4b4d' : cell === 2 ? '#facc15' : '#0b0b0e',
+            boxShadow: cell === 0 ? 'inset 0 2px 3px rgba(0,0,0,.8)' : 'inset 2px 2px 0 rgba(255,255,255,.3), inset -2px -2px 0 rgba(0,0,0,.3)',
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default CabinetScreen
