@@ -7,65 +7,65 @@ export default function Privacy() {
       <Link to="/" className="mb-2 inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)] transition hover:text-[var(--accent)]">
         <span className="rotate-180"><ArrowIcon /></span> Back to games
       </Link>
-      <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">Datenschutz</h1>
-      <p className="mt-1 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Datenschutzerklärung · Stand: Juli 2026</p>
+      <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">Privacy</h1>
+      <p className="mt-1 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Privacy policy · last updated: July 2026</p>
 
       <div className="mt-8 space-y-8 text-sm leading-7">
         <section>
-          <h2 className="font-display text-base font-bold uppercase">1. Verantwortlicher</h2>
+          <h2 className="font-display text-base font-bold uppercase">1. Controller</h2>
           <p className="mt-3">
-            Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
+            The controller responsible for data processing on this website is:<br />
             Alexej Krasnokutskij, Rua Jose Maria Nicolau 3, 1500-312 Lisboa, Portugal<br />
-            E-Mail: <a href="mailto:allxyog@gmail.com" className="font-bold text-[var(--accent)] hover:underline">allxyog@gmail.com</a>
+            Email: <a href="mailto:allxyog@gmail.com" className="font-bold text-[var(--accent)] hover:underline">allxyog@gmail.com</a>
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">2. Das Wichtigste in Kürze</h2>
+          <h2 className="font-display text-base font-bold uppercase">2. The short version</h2>
           <p className="mt-3 text-[var(--muted)]">
-            SharksGames ist eine reine Spiele-Website. Es gibt <strong className="text-[var(--ink)]">kein Benutzerkonto, kein Tracking, keine Analyse-Tools und keine Werbe-Cookies</strong>. Alle Spielstände werden ausschließlich lokal in Ihrem Browser gespeichert und verlassen Ihr Gerät nicht. Schriftarten werden von unserem eigenen Server geladen — es werden keine Verbindungen zu Google Fonts oder anderen Drittanbieter-CDNs aufgebaut.
+            SharksGames is a plain games website. There are <strong className="text-[var(--ink)]">no user accounts, no tracking, no analytics tools and no advertising cookies</strong>. All game progress is stored locally in your browser and never leaves your device. Fonts are served from our own server — no connections to Google Fonts or other third-party CDNs are made.
           </p>
         </section>
 
         <section>
           <h2 className="font-display text-base font-bold uppercase">3. Hosting (Vercel)</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Diese Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet. Beim Aufruf der Website verarbeitet Vercel technisch notwendige Daten (insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seite, Browser-Typ) in automatischen Server-Logs. Diese Verarbeitung ist für den Betrieb und die Sicherheit der Website erforderlich (Art. 6 Abs. 1 lit. f DSGVO — berechtigtes Interesse an einer sicheren und stabilen Bereitstellung). Mit Vercel besteht ein Auftragsverarbeitungsvertrag; für Übermittlungen in die USA stützt sich Vercel auf die EU-Standardvertragsklauseln sowie das EU-US Data Privacy Framework. Weitere Informationen: <span className="break-all">vercel.com/legal/privacy-policy</span>
+            This website is hosted by Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA. When you visit the site, Vercel processes technically necessary data (in particular your IP address, date and time of access, requested page, browser type) in automatic server logs. This processing is required to operate and secure the website (Art. 6(1)(f) GDPR — legitimate interest in providing a secure and stable service). A data processing agreement is in place with Vercel; for transfers to the USA, Vercel relies on the EU Standard Contractual Clauses and the EU-US Data Privacy Framework. More information: <span className="break-all">vercel.com/legal/privacy-policy</span>
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">4. Lokale Speicherung im Browser (localStorage)</h2>
+          <h2 className="font-display text-base font-bold uppercase">4. Local storage in your browser (localStorage)</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Für den Spielbetrieb speichern wir kleine Datensätze im localStorage Ihres Browsers: das gewählte Farbschema, Bestwerte und Spielfortschritte (z.&nbsp;B. 2048-Highscore, Memory-Level), einen frei wählbaren Spielernamen für das Kartenspiel Durak sowie Ihre Auswahl im Cookie-Hinweis. Diese Daten werden <strong className="text-[var(--ink)]">nicht an uns oder Dritte übertragen</strong>, enthalten keine Identifikatoren und können jederzeit über die Browsereinstellungen gelöscht werden. Diese Speicherung ist für den ausdrücklich gewünschten Dienst unbedingt erforderlich (Art. 5 Abs. 3 ePrivacy-Richtlinie 2002/58/EG, in Portugal umgesetzt durch Lei n.º 41/2004); Rechtsgrundlage im Übrigen ist Art. 6 Abs. 1 lit. f DSGVO.
+            To run the games, we store small records in your browser&apos;s localStorage: your color scheme, best scores and game progress (e.g. 2048 high score, Memory levels), a freely chosen player name for the card game Durak, and your choice in the cookie notice. This data is <strong className="text-[var(--ink)]">never transmitted to us or to third parties</strong>, contains no identifiers, and can be deleted at any time via your browser settings. This storage is strictly necessary for the service you explicitly request (Art. 5(3) ePrivacy Directive 2002/58/EC, implemented in Portugal by Lei n.º 41/2004); the legal basis otherwise is Art. 6(1)(f) GDPR.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">5. Werbung (geplant)</h2>
+          <h2 className="font-display text-base font-bold uppercase">5. Advertising (planned)</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Derzeit wird auf dieser Website <strong className="text-[var(--ink)]">keine Werbung</strong> ausgespielt; die sichtbaren „Ad space“-Flächen sind leere Platzhalter ohne Datenverarbeitung. Sollten wir künftig Werbung (z.&nbsp;B. Google AdSense) einbinden, geschieht dies erst nach einer Aktualisierung dieser Datenschutzerklärung und — soweit erforderlich — nach Ihrer ausdrücklichen Einwilligung über eine Consent-Abfrage (Art. 6 Abs. 1 lit. a DSGVO, Art. 5 Abs. 3 ePrivacy-Richtlinie 2002/58/EG).
+            No advertising is currently served on this website; the visible “ad space” areas are empty placeholders without any data processing. Should we integrate advertising in the future (e.g. Google AdSense), this will only happen after this privacy policy has been updated and — where required — after your explicit consent via a consent prompt (Art. 6(1)(a) GDPR, Art. 5(3) ePrivacy Directive 2002/58/EC).
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">6. Kontakt per E-Mail</h2>
+          <h2 className="font-display text-base font-bold uppercase">6. Contact by email</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die übermittelten Daten (E-Mail-Adresse, Inhalt) zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. f DSGVO). Die Daten werden gelöscht, sobald sie für die Bearbeitung nicht mehr erforderlich sind.
+            If you contact us by email, we process the data you provide (email address, message content) to handle your request (Art. 6(1)(f) GDPR). The data is deleted once it is no longer needed to process the request.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">7. Ihre Rechte</h2>
+          <h2 className="font-display text-base font-bold uppercase">7. Your rights</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Sie haben gegenüber dem Verantwortlichen das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO). Außerdem besteht ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde (Art. 77 DSGVO) — zuständig ist insbesondere die portugiesische Aufsichtsbehörde CNPD (Comissão Nacional de Proteção de Dados, cnpd.pt) oder die Behörde Ihres gewöhnlichen Aufenthaltsorts.
+            You have the right to access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and to object to processing based on legitimate interests (Art. 21 GDPR). You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR) — in particular the Portuguese authority CNPD (Comissão Nacional de Proteção de Dados, cnpd.pt) or the authority of your habitual residence.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">8. Keine automatisierte Entscheidungsfindung</h2>
+          <h2 className="font-display text-base font-bold uppercase">8. No automated decision-making</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Eine automatisierte Entscheidungsfindung einschließlich Profiling findet nicht statt. Die Bereitstellung personenbezogener Daten ist weder gesetzlich noch vertraglich vorgeschrieben — die Website ist ohne Angabe von Daten nutzbar.
+            No automated decision-making, including profiling, takes place. You are neither legally nor contractually required to provide personal data — the website can be used without providing any.
           </p>
         </section>
       </div>

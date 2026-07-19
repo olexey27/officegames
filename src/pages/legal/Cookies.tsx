@@ -3,12 +3,12 @@ import { ArrowIcon } from '../../components/icons'
 import { CONSENT_KEY, readConsent } from '../../components/CookieBanner'
 
 const STORED_ITEMS: [string, string][] = [
-  ['og-theme', 'Gewähltes Farbschema (hell/dunkel)'],
-  ['sg-2048-best', 'Bester 2048-Punktestand'],
-  ['sg-memory-unlocked', 'Freigeschaltete Memory-Level'],
-  ['sg-tetris-best', 'Bester Tetris-Punktestand'],
-  ['sg-player-name', 'Frei gewählter Spielername (Durak)'],
-  ['sg-consent', 'Ihre Auswahl im Cookie-Hinweis'],
+  ['og-theme', 'Chosen color scheme (light/dark)'],
+  ['sg-2048-best', 'Best 2048 score'],
+  ['sg-memory-unlocked', 'Unlocked Memory levels'],
+  ['sg-tetris-best', 'Best Tetris score'],
+  ['sg-player-name', 'Freely chosen player name (Durak)'],
+  ['sg-consent', 'Your choice in the cookie notice'],
 ]
 
 export default function Cookies() {
@@ -25,24 +25,24 @@ export default function Cookies() {
         <span className="rotate-180"><ArrowIcon /></span> Back to games
       </Link>
       <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">Cookies</h1>
-      <p className="mt-1 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Cookie- und Speicher-Hinweise · Stand: Juli 2026</p>
+      <p className="mt-1 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Cookie &amp; storage notice · last updated: July 2026</p>
 
       <div className="mt-8 space-y-8 text-sm leading-7">
         <section>
-          <h2 className="font-display text-base font-bold uppercase">Keine Cookies, kein Tracking</h2>
+          <h2 className="font-display text-base font-bold uppercase">No cookies, no tracking</h2>
           <p className="mt-3 text-[var(--muted)]">
-            SharksGames setzt derzeit <strong className="text-[var(--ink)]">keine Cookies</strong> und verwendet keine Tracking- oder Analyse-Dienste. Für den Spielbetrieb nutzen wir ausschließlich die lokale Speicherung Ihres Browsers (localStorage) — diese Daten bleiben auf Ihrem Gerät und werden nicht übertragen.
+            SharksGames currently sets <strong className="text-[var(--ink)]">no cookies</strong> and uses no tracking or analytics services. To run the games we only use your browser&apos;s local storage (localStorage) — this data stays on your device and is never transmitted.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">Was lokal gespeichert wird</h2>
+          <h2 className="font-display text-base font-bold uppercase">What is stored locally</h2>
           <div className="mt-3 overflow-x-auto">
             <table className="w-full border-2 border-[var(--line)] text-left">
               <thead>
                 <tr className="border-b-2 border-[var(--line)] bg-[var(--surface-soft)]">
-                  <th className="px-3 py-2 font-mono text-[10px] uppercase tracking-[.12em] text-[var(--muted)]">Eintrag</th>
-                  <th className="px-3 py-2 font-mono text-[10px] uppercase tracking-[.12em] text-[var(--muted)]">Zweck</th>
+                  <th className="px-3 py-2 font-mono text-[10px] uppercase tracking-[.12em] text-[var(--muted)]">Key</th>
+                  <th className="px-3 py-2 font-mono text-[10px] uppercase tracking-[.12em] text-[var(--muted)]">Purpose</th>
                 </tr>
               </thead>
               <tbody>
@@ -56,24 +56,24 @@ export default function Cookies() {
             </table>
           </div>
           <p className="mt-3 text-[var(--muted)]">
-            Alle Einträge können Sie jederzeit über die Einstellungen Ihres Browsers löschen („Websitedaten löschen“). Dabei gehen gespeicherte Bestwerte und Fortschritte verloren.
+            You can delete all entries at any time via your browser settings (“clear site data”). Doing so will remove saved best scores and progress.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">Zukünftige Werbung</h2>
+          <h2 className="font-display text-base font-bold uppercase">Future advertising</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Wenn künftig Werbung (z.&nbsp;B. Google AdSense) eingebunden wird, kommen erstmals Cookies bzw. vergleichbare Technologien von Werbepartnern zum Einsatz. In diesem Fall fragen wir Ihre Einwilligung vorab über eine Consent-Abfrage ab — ohne Einwilligung wird keine personalisierte Werbung geladen.
+            If advertising (e.g. Google AdSense) is added in the future, cookies or similar technologies from advertising partners will be used for the first time. In that case we will ask for your consent beforehand — without consent, no personalized advertising will be loaded.
           </p>
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">Ihre aktuelle Auswahl</h2>
+          <h2 className="font-display text-base font-bold uppercase">Your current choice</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Status: <strong className="text-[var(--ink)]">{consent === 'all' ? 'Alles akzeptiert' : consent === 'essential' ? 'Nur notwendige Speicherung' : 'Noch keine Auswahl getroffen'}</strong>
+            Status: <strong className="text-[var(--ink)]">{consent === 'all' ? 'Everything accepted' : consent === 'essential' ? 'Necessary storage only' : 'No choice made yet'}</strong>
           </p>
           <button onClick={resetChoice} className="retro-btn mt-4 bg-[var(--surface)] px-5 py-2.5 font-display text-[11px] font-bold uppercase">
-            Auswahl ändern
+            Change choice
           </button>
         </section>
       </div>
