@@ -1,11 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowIcon } from '../../components/icons'
 
-// Placeholder for personal data the site owner still needs to fill in.
-function Todo({ children }: { children: React.ReactNode }) {
-  return <span className="border border-dashed border-[var(--accent)] bg-[color:var(--accent)]/10 px-1.5 py-0.5 font-bold text-[var(--accent)]">{children}</span>
-}
-
 export default function Imprint() {
   return (
     <main className="mx-auto min-h-[calc(100vh-68px)] max-w-[820px] px-5 py-10 lg:px-8">
@@ -19,9 +14,9 @@ export default function Imprint() {
         <section>
           <h2 className="font-display text-base font-bold uppercase">Diensteanbieter gemäß Art. 5 E-Commerce-Richtlinie 2000/31/EG</h2>
           <p className="mt-3">
-            <Todo>[Vorname Nachname]</Todo><br />
-            <Todo>[Straße und Hausnummer]</Todo><br />
-            <Todo>[PLZ und Ort]</Todo><br />
+            Alexej Krasnokutskij<br />
+            Rua Jose Maria Nicolau 3<br />
+            1500-312 Lisboa<br />
             Portugal
           </p>
         </section>
@@ -36,7 +31,7 @@ export default function Imprint() {
         <section>
           <h2 className="font-display text-base font-bold uppercase">Verantwortlich für den Inhalt</h2>
           <p className="mt-3">
-            <Todo>[Vorname Nachname]</Todo>, Anschrift wie oben.
+            Alexej Krasnokutskij, Anschrift wie oben.
           </p>
         </section>
 

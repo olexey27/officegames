@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowIcon } from '../../components/icons'
 
-function Todo({ children }: { children: React.ReactNode }) {
-  return <span className="border border-dashed border-[var(--accent)] bg-[color:var(--accent)]/10 px-1.5 py-0.5 font-bold text-[var(--accent)]">{children}</span>
-}
-
 export default function Privacy() {
   return (
     <main className="mx-auto min-h-[calc(100vh-68px)] max-w-[820px] px-5 py-10 lg:px-8">
@@ -19,7 +15,7 @@ export default function Privacy() {
           <h2 className="font-display text-base font-bold uppercase">1. Verantwortlicher</h2>
           <p className="mt-3">
             Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
-            <Todo>[Vorname Nachname]</Todo>, <Todo>[Straße Nr., PLZ Ort]</Todo>, Portugal<br />
+            Alexej Krasnokutskij, Rua Jose Maria Nicolau 3, 1500-312 Lisboa, Portugal<br />
             E-Mail: <a href="mailto:allxyog@gmail.com" className="font-bold text-[var(--accent)] hover:underline">allxyog@gmail.com</a>
           </p>
         </section>
