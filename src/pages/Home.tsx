@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import ArcadeBackdrop, { FloatingShark } from '../components/ArcadeBackdrop'
-import CabinetScreen, { ChessPreview, DurakPreview, FourInARowPreview, MemoryPreview, MinesweeperPreview, Preview2048, SudokuPreview, TetrisPreview } from '../components/GamePreviews'
+import CabinetScreen, { ChessPreview, DurakPreview, FourInARowPreview, MahjongPreview, MemoryPreview, MinesweeperPreview, Preview2048, SudokuPreview, TetrisPreview } from '../components/GamePreviews'
 
 const GAMES = [
   { name: 'Sudoku', to: '/sudoku', tag: 'Focus', preview: <SudokuPreview /> },
@@ -11,6 +11,7 @@ const GAMES = [
   { name: 'Tetris', to: '/tetris', tag: 'Blocks', preview: <TetrisPreview /> },
   { name: 'Chess', to: '/chess', tag: 'Vs Sharkfish', preview: <ChessPreview /> },
   { name: 'Four in a Row', to: '/four-in-a-row', tag: 'Vs Sharkfish', preview: <FourInARowPreview /> },
+  { name: 'Mahjong', to: '/mahjong', tag: 'Tile match', preview: <MahjongPreview /> },
 ]
 
 const STEPS = [
@@ -42,7 +43,7 @@ export default function Home() {
         <div className="relative isolate min-h-[340px] overflow-hidden border-2 border-[var(--ink)] bg-[#0b0b0e] lg:min-h-[500px]">
           <ArcadeBackdrop />
           <span className="absolute right-4 top-4 z-10 inline-flex items-center gap-1.5 bg-[#ff4b4d] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[.11em] text-white">
-            <span className="size-1.5 animate-pulse bg-white" /> 08 live
+            <span className="size-1.5 animate-pulse bg-white" /> 09 live
           </span>
           <div className="grid h-full place-items-center p-6">
             <div className="w-full max-w-[440px]"><FloatingShark /></div>

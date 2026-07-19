@@ -194,4 +194,27 @@ export function FourInARowPreview() {
   )
 }
 
+export function MahjongPreview() {
+  const tiles = [
+    { main: '●', top: '3', color: '#2563eb', left: 0, topPx: 14 },
+    { main: '万', top: '7', color: '#e93131', left: 26, topPx: 20 },
+    { main: '✿', top: 'FLW', color: '#db2777', left: 52, topPx: 8 },
+    { main: '●', top: '3', color: '#2563eb', left: 14, topPx: 0 },
+  ]
+  return (
+    <div className="relative h-[72px] w-[92px]">
+      {tiles.map((tile, i) => (
+        <span
+          key={i}
+          className="absolute flex h-[52px] w-[38px] flex-col items-center justify-center border-2 border-[#242321] bg-[#f6f1e7]"
+          style={{ left: tile.left, top: tile.topPx, zIndex: i, boxShadow: '3px 3px 0 #8a7a5c' }}
+        >
+          <span className="font-mono text-[7px] font-bold" style={{ color: '#8a7a5c' }}>{tile.top}</span>
+          <span className="text-base font-bold leading-none" style={{ color: tile.color }}>{tile.main}</span>
+        </span>
+      ))}
+    </div>
+  )
+}
+
 export default CabinetScreen
