@@ -16,7 +16,7 @@ export default function Privacy() {
           <p className="mt-3">
             The controller responsible for data processing on this website is:<br />
             Alexej Krasnokutskij, Rua Jose Maria Nicolau 3, 1500-312 Lisboa, Portugal<br />
-            Email: <a href="mailto:allxyog@gmail.com" className="font-bold text-[var(--accent)] hover:underline">allxyog@gmail.com</a>
+            Email: <a href="mailto:alexeykrasnokutskiy@googlemail.com" className="font-bold text-[var(--accent)] hover:underline">alexeykrasnokutskiy@googlemail.com</a>
           </p>
         </section>
 

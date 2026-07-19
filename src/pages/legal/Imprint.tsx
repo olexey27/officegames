@@ -24,7 +24,7 @@ export default function Imprint() {
         <section>
           <h2 className="font-display text-base font-bold uppercase">Contact</h2>
           <p className="mt-3">
-            Email: <a href="mailto:allxyog@gmail.com" className="font-bold text-[var(--accent)] hover:underline">allxyog@gmail.com</a>
+            Email: <a href="mailto:alexeykrasnokutskiy@googlemail.com" className="font-bold text-[var(--accent)] hover:underline">alexeykrasnokutskiy@googlemail.com</a>
           </p>
         </section>
 

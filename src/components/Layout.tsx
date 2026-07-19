@@ -87,7 +87,7 @@ export default function Layout() {
               <Link to="/privacy" className="transition-colors hover:text-[#ff4b4d]">Privacy</Link>
               <Link to="/cookies" className="transition-colors hover:text-[#ff4b4d]">Cookies</Link>
               <Link to="/imprint" className="transition-colors hover:text-[#ff4b4d]">Imprint</Link>
-              <a href="mailto:allxyog@gmail.com" className="transition-colors hover:text-[#ff4b4d]">Contact</a>
+              <a href="mailto:alexeykrasnokutskiy@googlemail.com" className="transition-colors hover:text-[#ff4b4d]">Contact</a>
             </div>
             <p className="font-mono text-[9px] uppercase tracking-[.13em] text-white/40">© 2026 SharksGames</p>
           </div>
