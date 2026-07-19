@@ -13,16 +13,16 @@ export default function Imprint() {
         <span className="rotate-180"><ArrowIcon /></span> Back to games
       </Link>
       <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">Impressum</h1>
-      <p className="mt-1 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Legal notice (German law)</p>
+      <p className="mt-1 font-mono text-[10px] uppercase tracking-[.14em] text-[var(--muted)]">Anbieterkennzeichnung · Legal notice</p>
 
       <div className="mt-8 space-y-8 text-sm leading-7">
         <section>
-          <h2 className="font-display text-base font-bold uppercase">Angaben gemäß § 5 DDG</h2>
+          <h2 className="font-display text-base font-bold uppercase">Diensteanbieter gemäß Art. 5 E-Commerce-Richtlinie 2000/31/EG</h2>
           <p className="mt-3">
             <Todo>[Vorname Nachname]</Todo><br />
             <Todo>[Straße und Hausnummer]</Todo><br />
             <Todo>[PLZ und Ort]</Todo><br />
-            Deutschland
+            Portugal
           </p>
         </section>
 
@@ -34,7 +34,7 @@ export default function Imprint() {
         </section>
 
         <section>
-          <h2 className="font-display text-base font-bold uppercase">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+          <h2 className="font-display text-base font-bold uppercase">Verantwortlich für den Inhalt</h2>
           <p className="mt-3">
             <Todo>[Vorname Nachname]</Todo>, Anschrift wie oben.
           </p>
@@ -50,7 +50,7 @@ export default function Imprint() {
         <section>
           <h2 className="font-display text-base font-bold uppercase">Urheberrecht</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung und Verbreitung außerhalb der Grenzen des Urheberrechts bedürfen der Zustimmung des Betreibers.
+            Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem Urheberrecht. Vervielfältigung, Bearbeitung und Verbreitung außerhalb der Grenzen des Urheberrechts bedürfen der Zustimmung des Betreibers.
           </p>
         </section>
       </div>

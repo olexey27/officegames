@@ -19,7 +19,7 @@ export default function Privacy() {
           <h2 className="font-display text-base font-bold uppercase">1. Verantwortlicher</h2>
           <p className="mt-3">
             Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
-            <Todo>[Vorname Nachname]</Todo>, <Todo>[Straße Nr., PLZ Ort]</Todo>, Deutschland<br />
+            <Todo>[Vorname Nachname]</Todo>, <Todo>[Straße Nr., PLZ Ort]</Todo>, Portugal<br />
             E-Mail: <a href="mailto:allxyog@gmail.com" className="font-bold text-[var(--accent)] hover:underline">allxyog@gmail.com</a>
           </p>
         </section>
@@ -41,14 +41,14 @@ export default function Privacy() {
         <section>
           <h2 className="font-display text-base font-bold uppercase">4. Lokale Speicherung im Browser (localStorage)</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Für den Spielbetrieb speichern wir kleine Datensätze im localStorage Ihres Browsers: das gewählte Farbschema, Bestwerte und Spielfortschritte (z.&nbsp;B. 2048-Highscore, Memory-Level), einen frei wählbaren Spielernamen für das Kartenspiel Durak sowie Ihre Auswahl im Cookie-Hinweis. Diese Daten werden <strong className="text-[var(--ink)]">nicht an uns oder Dritte übertragen</strong>, enthalten keine Identifikatoren und können jederzeit über die Browsereinstellungen gelöscht werden. Rechtsgrundlage ist § 25 Abs. 2 Nr. 2 TDDDG (unbedingt erforderlich für den ausdrücklich gewünschten Dienst) bzw. Art. 6 Abs. 1 lit. f DSGVO.
+            Für den Spielbetrieb speichern wir kleine Datensätze im localStorage Ihres Browsers: das gewählte Farbschema, Bestwerte und Spielfortschritte (z.&nbsp;B. 2048-Highscore, Memory-Level), einen frei wählbaren Spielernamen für das Kartenspiel Durak sowie Ihre Auswahl im Cookie-Hinweis. Diese Daten werden <strong className="text-[var(--ink)]">nicht an uns oder Dritte übertragen</strong>, enthalten keine Identifikatoren und können jederzeit über die Browsereinstellungen gelöscht werden. Diese Speicherung ist für den ausdrücklich gewünschten Dienst unbedingt erforderlich (Art. 5 Abs. 3 ePrivacy-Richtlinie 2002/58/EG, in Portugal umgesetzt durch Lei n.º 41/2004); Rechtsgrundlage im Übrigen ist Art. 6 Abs. 1 lit. f DSGVO.
           </p>
         </section>
 
         <section>
           <h2 className="font-display text-base font-bold uppercase">5. Werbung (geplant)</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Derzeit wird auf dieser Website <strong className="text-[var(--ink)]">keine Werbung</strong> ausgespielt; die sichtbaren „Ad space“-Flächen sind leere Platzhalter ohne Datenverarbeitung. Sollten wir künftig Werbung (z.&nbsp;B. Google AdSense) einbinden, geschieht dies erst nach einer Aktualisierung dieser Datenschutzerklärung und — soweit erforderlich — nach Ihrer ausdrücklichen Einwilligung über eine Consent-Abfrage (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG).
+            Derzeit wird auf dieser Website <strong className="text-[var(--ink)]">keine Werbung</strong> ausgespielt; die sichtbaren „Ad space“-Flächen sind leere Platzhalter ohne Datenverarbeitung. Sollten wir künftig Werbung (z.&nbsp;B. Google AdSense) einbinden, geschieht dies erst nach einer Aktualisierung dieser Datenschutzerklärung und — soweit erforderlich — nach Ihrer ausdrücklichen Einwilligung über eine Consent-Abfrage (Art. 6 Abs. 1 lit. a DSGVO, Art. 5 Abs. 3 ePrivacy-Richtlinie 2002/58/EG).
           </p>
         </section>
 
@@ -62,7 +62,7 @@ export default function Privacy() {
         <section>
           <h2 className="font-display text-base font-bold uppercase">7. Ihre Rechte</h2>
           <p className="mt-3 text-[var(--muted)]">
-            Sie haben gegenüber dem Verantwortlichen das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO). Außerdem besteht ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde (Art. 77 DSGVO).
+            Sie haben gegenüber dem Verantwortlichen das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO). Außerdem besteht ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde (Art. 77 DSGVO) — zuständig ist insbesondere die portugiesische Aufsichtsbehörde CNPD (Comissão Nacional de Proteção de Dados, cnpd.pt) oder die Behörde Ihres gewöhnlichen Aufenthaltsorts.
           </p>
         </section>
 
