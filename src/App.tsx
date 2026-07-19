@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Memory from './pages/Memory'
 import Minesweeper from './pages/Minesweeper'
 import Sudoku from './pages/Sudoku'
+import Tetris from './pages/Tetris'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/memory" element={<Memory />} />
         <Route path="/minesweeper" element={<Minesweeper />} />
         <Route path="/durak" element={<Durak />} />
+        <Route path="/tetris" element={<Tetris />} />
       </Route>
     </Routes>
   )

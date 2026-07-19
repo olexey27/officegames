@@ -129,4 +129,22 @@ export function DurakPreview() {
   )
 }
 
+export function TetrisPreview() {
+  // A tiny well: settled rows with a T piece dropping in.
+  const cells: (string | null)[] = [
+    null, null, '#c084fc', null, null, null,
+    null, '#c084fc', '#c084fc', '#c084fc', null, null,
+    null, null, null, null, null, null,
+    '#38bdf8', '#38bdf8', null, '#4ade80', '#facc15', '#facc15',
+    '#38bdf8', '#38bdf8', '#ff4b4d', '#4ade80', '#facc15', '#facc15',
+  ]
+  return (
+    <div className="grid grid-cols-6 gap-[2px] border-2 border-white/20 bg-[#151518] p-1">
+      {cells.map((color, i) => (
+        <span key={i} className="size-4" style={{ background: color ?? 'transparent', boxShadow: color ? 'inset -1px -1px 0 rgba(0,0,0,.4), inset 1px 1px 0 rgba(255,255,255,.25)' : undefined }} />
+      ))}
+    </div>
+  )
+}
+
 export default CabinetScreen
