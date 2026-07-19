@@ -217,4 +217,25 @@ export function MahjongPreview() {
   )
 }
 
+export function SnakePreview() {
+  // 7x5 mini board: snake winding toward a red bite.
+  const snake = [7, 8, 9, 16, 23, 22, 21]
+  const head = 7
+  const food = 4
+  return (
+    <div className="grid grid-cols-7 gap-[2px] border-2 border-white/20 bg-[#151518] p-1">
+      {Array.from({ length: 35 }, (_, i) => (
+        <span
+          key={i}
+          className="size-3.5"
+          style={{
+            background: i === head ? '#86efac' : snake.includes(i) ? '#4ade80' : i === food ? '#ff4b4d' : 'transparent',
+            boxShadow: snake.includes(i) || i === food ? 'inset -1px -1px 0 rgba(0,0,0,.4), inset 1px 1px 0 rgba(255,255,255,.25)' : undefined,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default CabinetScreen

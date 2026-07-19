@@ -11,6 +11,7 @@ import Imprint from './pages/legal/Imprint'
 import Privacy from './pages/legal/Privacy'
 import Memory from './pages/Memory'
 import Minesweeper from './pages/Minesweeper'
+import Snake from './pages/Snake'
 import Sudoku from './pages/Sudoku'
 import Tetris from './pages/Tetris'
 
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/chess" element={<ChessPage />} />
         <Route path="/four-in-a-row" element={<FourInARow />} />
         <Route path="/mahjong" element={<Mahjong />} />
+        <Route path="/snake" element={<Snake />} />
         <Route path="/imprint" element={<Imprint />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/cookies" element={<Cookies />} />
