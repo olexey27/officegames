@@ -147,4 +147,27 @@ export function TetrisPreview() {
   )
 }
 
+export function ChessPreview() {
+  // 4x4 corner of a board: white king+queen facing a black knight.
+  const squares = [
+    { p: '♞', c: '#17171a' }, null, { p: '♟', c: '#17171a' }, null,
+    null, { p: '♙', c: '#fff' }, null, null,
+    { p: '♕', c: '#fff' }, null, { p: '♔', c: '#fff' }, null,
+    null, null, null, { p: '♗', c: '#fff' },
+  ]
+  return (
+    <div className="grid grid-cols-4 overflow-hidden border-2 border-white/25">
+      {squares.map((cell, i) => {
+        const row = Math.floor(i / 4)
+        const dark = (row + i) % 2 === 1
+        return (
+          <span key={i} className="grid size-8 place-items-center text-lg leading-none" style={{ background: dark ? '#9c4f53' : '#efe5db', color: cell?.c, textShadow: cell?.c === '#fff' ? '0 1px 1px rgba(0,0,0,.6)' : undefined }}>
+            {cell?.p}
+          </span>
+        )
+      })}
+    </div>
+  )
+}
+
 export default CabinetScreen

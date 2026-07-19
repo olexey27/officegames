@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
+import ChessPage from './pages/Chess'
 import Durak from './pages/Durak'
 import Game2048 from './pages/Game2048'
 import Home from './pages/Home'
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/minesweeper" element={<Minesweeper />} />
         <Route path="/durak" element={<Durak />} />
         <Route path="/tetris" element={<Tetris />} />
+        <Route path="/chess" element={<ChessPage />} />
         <Route path="/imprint" element={<Imprint />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/cookies" element={<Cookies />} />
