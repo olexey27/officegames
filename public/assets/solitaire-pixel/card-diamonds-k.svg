@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 150" width="100" height="150" shape-rendering="crispEdges">
+<style>.rank{font:700 14px monospace}.figure{font:700 7px monospace;letter-spacing:1px}</style>
+<rect x="3" y="3" width="94" height="144" fill="#1b2933"/><rect x="3" y="0" width="94" height="144" fill="#fffdf6"/>
+<rect x="7" y="4" width="86" height="136" fill="#fff"/><rect x="8" y="5" width="84" height="134" fill="#fffdfb"/>
+<text x="10" y="20" class="rank" fill="#e23d3a">K</text><rect x="14.50" y="23.00" width="2.00" height="2.00" fill="#e23d3a"/><rect x="12.50" y="25.00" width="6.00" height="2.00" fill="#e23d3a"/><rect x="10.50" y="27.00" width="10.00" height="3.00" fill="#e23d3a"/><rect x="12.50" y="30.00" width="6.00" height="2.00" fill="#e23d3a"/><rect x="14.50" y="32.00" width="2.00" height="3.00" fill="#e23d3a"/><rect x="22" y="34" width="56" height="82" fill="#d8f0f5"/>
+<rect x="26" y="38" width="48" height="74" fill="#f4e5c3"/>
+<rect x="30" y="42" width="40" height="66" fill="#60a5fa"/>
+<rect x="34" y="48" width="32" height="22" fill="#ffddbc"/>
+<rect x="38" y="44" width="24" height="7" fill="#263b48"/>
+<rect x="38" y="58" width="4" height="4" fill="#263b48"/><rect x="58" y="58" width="4" height="4" fill="#263b48"/>
+<rect x="45" y="66" width="10" height="3" fill="#b4534f"/>
+<rect x="31" y="78" width="38" height="22" fill="#fff3df"/>
+<rect x="45" y="76" width="10" height="26" fill="#263b48"/>
+<rect x="24" y="38" width="4" height="74" fill="#263b48"/><rect x="72" y="38" width="4" height="74" fill="#263b48"/>
+<text x="50" y="109" text-anchor="middle" class="figure" fill="#263b48">KING</text><g transform="rotate(180 50 75)"><text x="10" y="20" class="rank" fill="#e23d3a">K</text><rect x="14.50" y="23.00" width="2.00" height="2.00" fill="#e23d3a"/><rect x="12.50" y="25.00" width="6.00" height="2.00" fill="#e23d3a"/><rect x="10.50" y="27.00" width="10.00" height="3.00" fill="#e23d3a"/><rect x="12.50" y="30.00" width="6.00" height="2.00" fill="#e23d3a"/><rect x="14.50" y="32.00" width="2.00" height="3.00" fill="#e23d3a"/></g>
+</svg>

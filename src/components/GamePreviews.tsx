@@ -238,4 +238,23 @@ export function SnakePreview() {
   )
 }
 
+export function SolitairePreview() {
+  // Three overlapping real pixel cards from the deck.
+  const cards = ['card-spades-k', 'card-hearts-q', 'card-clubs-j']
+  return (
+    <div className="relative h-[70px] w-[92px]">
+      {cards.map((name, i) => (
+        <img
+          key={name}
+          src={`/assets/solitaire-pixel/${name}.svg`}
+          alt=""
+          className="absolute top-0 h-[64px] w-auto border border-black/30"
+          style={{ left: i * 22, zIndex: i, imageRendering: 'pixelated' }}
+          draggable={false}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default CabinetScreen
