@@ -316,7 +316,8 @@ export default function Solitaire() {
   return (
     <main
       className="mx-auto min-h-[calc(100vh-68px)] max-w-[1240px] px-5 py-8 lg:px-8 lg:py-12"
-      style={{ ['--cw' as never]: 'min(12.5vw, 78px)', ['--ch' as never]: 'calc(var(--cw) * 1.5)' }}
+      /* Cards never shrink below a tappable size; narrow screens scroll instead. */
+      style={{ ['--cw' as never]: 'max(46px, min(12.5vw, 78px))', ['--ch' as never]: 'calc(var(--cw) * 1.5)' }}
     >
       {/* Ad slot */}
       <div className="mb-6 flex items-center justify-center gap-3 border-2 border-dashed border-[var(--line)] bg-[var(--surface-soft)] py-3 text-center font-mono text-[10px] uppercase tracking-[.12em] text-[var(--muted)]">
