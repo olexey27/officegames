@@ -336,6 +336,44 @@ body {
   animation: disc-win 0.9s ease-in-out infinite;
 }
 
+/* ---------- Solitaire cards ---------- */
+
+/* Turn-over animation: the freshly revealed face swings in from edge-on. */
+@keyframes card-flip-in {
+  from { transform: perspective(600px) rotateY(88deg); }
+  to { transform: perspective(600px) rotateY(0deg); }
+}
+
+.card-flip-in {
+  animation: card-flip-in 0.3s ease-out;
+}
+
+/* The stack that follows the cursor while dragging. */
+.card-drag-layer {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  filter: drop-shadow(6px 10px 8px rgba(0, 0, 0, 0.5));
+  transform: rotate(-3deg) scale(1.04);
+}
+
+/* Cards left behind in the pile while their copy is being dragged. */
+.card-dragging-source {
+  opacity: 0.28;
+}
+
+/* Invalid drop: glide back to where the drag started. */
+.card-snap-back {
+  transition: left 0.24s cubic-bezier(0.4, 0, 0.2, 1), top 0.24s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.24s ease;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Pile highlighted as a valid target under the cursor. */
+.drop-target-ok {
+  box-shadow: inset 0 0 0 3px #4ade80, 0 0 14px rgba(74, 222, 128, 0.55);
+}
+
 /* ---------- Memory cards ---------- */
 
 .memory-card {
@@ -474,8 +512,17 @@ body {
   .explosion-bit,
   .explosion-shake,
   .disc-drop,
-  .disc-win {
+  .disc-win,
+  .card-flip-in {
     animation: none;
+  }
+
+  .card-drag-layer {
+    transform: none;
+  }
+
+  .card-snap-back {
+    transition: none;
   }
 
   .memory-inner {
