@@ -1,16 +1,18 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import FullscreenButton from '../components/FullscreenButton'
 import { ArrowIcon } from '../components/icons'
 import {
   availablePairs,
   deal,
-  faceOf,
   freeTiles,
   shuffleRemaining,
+  tileSrc,
   type MahjongLayout,
   type Tile,
 } from '../games/mahjong/engine'
+
+const MATCH_ANIM_MS = 380
 
 const LAYOUTS: MahjongLayout[] = ['Quick', 'Easy', 'Turtle']
 const TILE_INFO: Record<MahjongLayout, string> = { Quick: '36 tiles', Easy: '72 tiles', Turtle: '144 tiles' }
@@ -36,8 +38,17 @@ export default function Mahjong() {
   const [seconds, setSeconds] = useState(0)
   const [started, setStarted] = useState(false)
   const [shuffles, setShuffles] = useState(0)
+  /** Ids currently playing the vanish animation — still rendered, not clickable. */
+  const [vanishing, setVanishing] = useState<Set<number>>(() => new Set())
+  const vanishTimers = useRef<number[]>([])
+
+  const clearVanishTimers = () => {
+    for (const id of vanishTimers.current) window.clearTimeout(id)
+    vanishTimers.current = []
+  }
 
   const restart = (nextLayout: MahjongLayout) => {
+    clearVanishTimers()
     setTiles(deal(nextLayout))
     setSelected(null)
     setHint(null)
@@ -45,7 +56,11 @@ export default function Mahjong() {
     setSeconds(0)
     setStarted(false)
     setShuffles(0)
+    setVanishing(new Set())
   }
+
+  // Drop any pending timers when leaving the page.
+  useEffect(() => clearVanishTimers, [])
 
   // Layout change deals a fresh board.
   useEffect(() => {
@@ -67,7 +82,7 @@ export default function Mahjong() {
   }, [started, won, stuck])
 
   const onTile = (tile: Tile) => {
-    if (won || !freeSet.has(tile.id)) return
+    if (won || vanishing.has(tile.id) || !freeSet.has(tile.id)) return
     setStarted(true)
     setHint(null)
     if (selected === tile.id) {
@@ -77,9 +92,21 @@ export default function Mahjong() {
     if (selected !== null) {
       const other = tiles.find((t) => t.id === selected)
       if (other && other.kind === tile.kind) {
-        setTiles((prev) => prev.map((t) => (t.id === tile.id || t.id === selected ? { ...t, removed: true } : t)))
-        setHistory((prev) => [...prev, [selected, tile.id]])
+        // Let the pair play its vanish animation, then take it off the board.
+        const pair: [number, number] = [selected, tile.id]
         setSelected(null)
+        setVanishing((prev) => new Set(prev).add(pair[0]).add(pair[1]))
+        const timer = window.setTimeout(() => {
+          setTiles((prev) => prev.map((t) => (t.id === pair[0] || t.id === pair[1] ? { ...t, removed: true } : t)))
+          setHistory((prev) => [...prev, pair])
+          setVanishing((prev) => {
+            const next = new Set(prev)
+            next.delete(pair[0])
+            next.delete(pair[1])
+            return next
+          })
+        }, MATCH_ANIM_MS)
+        vanishTimers.current.push(timer)
         return
       }
     }
@@ -95,6 +122,8 @@ export default function Mahjong() {
 
   const undo = () => {
     if (history.length === 0) return
+    clearVanishTimers()
+    setVanishing(new Set())
     const [a, b] = history[history.length - 1]
     setTiles((prev) => prev.map((t) => (t.id === a || t.id === b ? { ...t, removed: false } : t)))
     setHistory((prev) => prev.slice(0, -1))
@@ -104,6 +133,8 @@ export default function Mahjong() {
 
   const shuffle = () => {
     if (alive.length < 4) return
+    clearVanishTimers()
+    setVanishing(new Set())
     setTiles((prev) => shuffleRemaining(prev))
     setSelected(null)
     setHint(null)
@@ -170,34 +201,49 @@ export default function Mahjong() {
           <div className="relative w-full" style={{ aspectRatio: `${W} / ${H + PAD}` }}>
             {sorted.map((tile) => {
               if (tile.removed) return null
-              const face = faceOf(tile.kind)
               const isFreeTile = freeSet.has(tile.id)
               const isSelected = selected === tile.id
               const isHint = hint !== null && (hint[0] === tile.id || hint[1] === tile.id)
+              const isVanishing = vanishing.has(tile.id)
               return (
                 <button
                   key={tile.id}
                   onClick={() => onTile(tile)}
-                  className="absolute flex flex-col items-center justify-center border-2 transition-transform"
+                  className={`absolute ${isVanishing ? 'tile-match-out' : isSelected ? 'tile-pick' : ''}`}
                   style={{
                     left: `${(tile.x / W) * 100}%`,
                     top: `${((tile.y - tile.z * 0.6 + PAD) / (H + PAD)) * 100}%`,
                     width: `${(2 / W) * 100}%`,
                     height: `${(2 / (H + PAD)) * 100}%`,
-                    zIndex: tile.z * 1000 + tile.y * 30 + (30 - tile.x),
-                    background: isFreeTile ? '#f6f1e7' : '#cfc5b2',
-                    borderColor: isSelected ? '#e93131' : isHint ? '#38bdf8' : '#242321',
-                    boxShadow: isSelected
-                      ? '0 0 0 2px #e93131, 3px 4px 0 #8a7a5c'
-                      : isHint
-                        ? '0 0 0 2px #38bdf8, 3px 4px 0 #8a7a5c'
-                        : '3px 4px 0 #8a7a5c, 4px 6px 6px rgba(0,0,0,.35)',
+                    zIndex: (isVanishing || isSelected ? 5000 : 0) + tile.z * 1000 + tile.y * 30 + (30 - tile.x),
+                    // Blocked tiles are dimmed so free ones read at a glance.
+                    filter: isFreeTile || isVanishing ? 'none' : 'brightness(0.72) saturate(0.7)',
                     cursor: isFreeTile && !won ? 'pointer' : 'default',
                   }}
-                  aria-label={`Tile ${tile.kind}${isFreeTile ? ', free' : ', blocked'}`}
+                  aria-label={`Tile ${tile.kind}${isFreeTile ? ', free' : ', blocked'}${isSelected ? ', selected' : ''}`}
                 >
-                  <span className="font-mono font-bold leading-none" style={{ fontSize: 'clamp(5px, 1vw, 10px)', color: '#8a7a5c' }}>{face.top}</span>
-                  <span className="font-bold leading-none" style={{ fontSize: 'clamp(9px, 2.2vw, 22px)', color: face.color }}>{face.main}</span>
+                  <img
+                    src={tileSrc(tile.kind)}
+                    alt=""
+                    draggable={false}
+                    className="block h-full w-full select-none"
+                    style={{
+                      imageRendering: 'pixelated',
+                      outline: isSelected ? '2px solid #e93131' : isHint ? '2px solid #38bdf8' : 'none',
+                      outlineOffset: '-2px',
+                      filter: isSelected
+                        ? 'drop-shadow(0 0 5px rgba(233,49,49,.85))'
+                        : isHint
+                          ? 'drop-shadow(0 0 5px rgba(56,189,248,.85))'
+                          : 'none',
+                    }}
+                  />
+                  {isVanishing && (
+                    <span
+                      className="tile-spark pointer-events-none absolute inset-0"
+                      style={{ background: 'radial-gradient(circle at center, rgba(255,241,171,.95) 0%, rgba(255,207,90,.5) 45%, transparent 72%)' }}
+                    />
+                  )}
                 </button>
               )
             })}

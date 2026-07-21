@@ -9,13 +9,14 @@ export type MahjongLayout = 'Quick' | 'Easy' | 'Turtle'
 export type Position = { x: number; y: number; z: number }
 export type Tile = Position & { id: number; kind: string; removed: boolean }
 
-// 34 classic kinds + flowers + seasons (each label = one PAIR when dealing).
-const KINDS: string[] = [
-  ...Array.from({ length: 9 }, (_, i) => `d${i + 1}`), // dots
-  ...Array.from({ length: 9 }, (_, i) => `b${i + 1}`), // bamboo
-  ...Array.from({ length: 9 }, (_, i) => `c${i + 1}`), // characters
-  'wE', 'wS', 'wW', 'wN', // winds
-  'drR', 'drG', 'drW', // dragons
+// The 34 standard kinds, named after the tile artwork files:
+// 1m-9m characters (Man), 1p-9p dots (Pin), 1s-9s bamboo (Sou),
+// 1z-7z honors (East/South/West/North/Hatsu/Chun/Haku).
+export const KINDS: string[] = [
+  ...Array.from({ length: 9 }, (_, i) => `${i + 1}m`),
+  ...Array.from({ length: 9 }, (_, i) => `${i + 1}p`),
+  ...Array.from({ length: 9 }, (_, i) => `${i + 1}s`),
+  ...Array.from({ length: 7 }, (_, i) => `${i + 1}z`),
 ]
 
 export function positions(layout: MahjongLayout): Position[] {
@@ -67,18 +68,15 @@ export function isFree(pos: Position, present: Position[]): boolean {
   return !(leftBlocked && rightBlocked)
 }
 
-/** Pair labels for a layout size (each label used for exactly 2 tiles). */
+/**
+ * Pair labels for a layout size (each label is used for exactly 2 tiles).
+ * Kinds are cycled, so a 144-tile board uses every kind twice plus a few
+ * repeats — the deck has no flower/season tiles.
+ */
 function pairLabels(tileCount: number): string[] {
   const pairs = tileCount / 2
   const labels: string[] = []
-  if (pairs === 72) {
-    for (const kind of KINDS) labels.push(kind, kind) // 34 kinds x 2 pairs
-    labels.push('fl', 'fl', 'se', 'se') // 4 flowers + 4 seasons
-  } else if (pairs === 36) {
-    labels.push(...KINDS, 'fl', 'se') // every kind once
-  } else {
-    for (let i = 0; i < pairs; i++) labels.push(KINDS[i % KINDS.length])
-  }
+  for (let i = 0; i < pairs; i++) labels.push(KINDS[i % KINDS.length])
   return labels
 }
 
@@ -191,22 +189,9 @@ export function shuffleRemaining(tiles: Tile[]): Tile[] {
   return tiles
 }
 
-// ---------- tile faces ----------
+// ---------- tile artwork ----------
 
-export type Face = { top: string; main: string; color: string }
-
-export function faceOf(kind: string): Face {
-  if (kind.startsWith('d')) {
-    if (kind.startsWith('dr')) {
-      if (kind === 'drR') return { top: 'DRG', main: '中', color: '#e93131' }
-      if (kind === 'drG') return { top: 'DRG', main: '發', color: '#16a34a' }
-      return { top: 'DRG', main: '▢', color: '#6e6d71' }
-    }
-    return { top: kind.slice(1), main: '●', color: '#2563eb' }
-  }
-  if (kind.startsWith('b')) return { top: kind.slice(1), main: '▮', color: '#16a34a' }
-  if (kind.startsWith('c')) return { top: kind.slice(1), main: '万', color: '#e93131' }
-  if (kind.startsWith('w')) return { top: 'WND', main: kind.slice(1), color: '#17171a' }
-  if (kind === 'fl') return { top: 'FLW', main: '✿', color: '#db2777' }
-  return { top: 'SSN', main: '☀', color: '#ea580c' }
+/** Path to the pixel-art SVG for a kind. */
+export function tileSrc(kind: string): string {
+  return `/assets/mahjong-pixel/${kind}.svg`
 }

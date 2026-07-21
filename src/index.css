@@ -413,6 +413,42 @@ body {
   animation: match-pop 0.4s ease;
 }
 
+/* ---------- Mahjong tiles ---------- */
+
+/* Quick press feedback when a free tile is picked. */
+@keyframes tile-pick {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.09); }
+  100% { transform: scale(1.05); }
+}
+
+.tile-pick {
+  animation: tile-pick 0.16s ease-out forwards;
+}
+
+/* A matched pair lifts, spins a touch and fades away. */
+@keyframes tile-match-out {
+  0% { transform: scale(1.05) rotate(0deg); opacity: 1; }
+  35% { transform: scale(1.28) rotate(-5deg); opacity: 1; filter: brightness(1.6); }
+  100% { transform: scale(0.2) rotate(12deg); opacity: 0; filter: brightness(2); }
+}
+
+.tile-match-out {
+  animation: tile-match-out 0.38s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+  pointer-events: none;
+}
+
+/* Sparkle that blooms where the pair vanished. */
+@keyframes tile-spark {
+  0% { transform: scale(0.3); opacity: 0.9; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+.tile-spark {
+  animation: tile-spark 0.42s ease-out forwards;
+  pointer-events: none;
+}
+
 @keyframes trophy-pop {
   0% { transform: scale(0) rotate(-14deg); }
   60% { transform: scale(1.25) rotate(5deg); }
@@ -505,6 +541,9 @@ body {
   .tile-new,
   .tile-merged,
   .memory-inner.is-matched,
+  .tile-pick,
+  .tile-match-out,
+  .tile-spark,
   .trophy-pop,
   .trophy-glow,
   .explosion-flash,
