@@ -24,27 +24,32 @@ export function positions(layout: MahjongLayout): Position[] {
   const row = (xStart: number, count: number, y: number, z: number) => {
     for (let i = 0; i < count; i++) result.push({ x: xStart + i * 2, y, z })
   }
+  // A rectangular block of tiles at layer z, top-left corner in half-units.
+  const block = (x0: number, y0: number, cols: number, rows: number, z: number) => {
+    for (let r = 0; r < rows; r++) row(x0, cols, y0 + r * 2, z)
+  }
 
   if (layout === 'Quick') {
-    // 36 tiles: 8x4 base + 2x2 crown.
-    for (let r = 0; r < 4; r++) row(0, 8, r * 2, 0)
-    row(6, 2, 2, 1)
-    row(6, 2, 4, 1)
+    // 36 tiles — a stepped mound: 6x4 base with a 4x3 deck stacked and
+    // offset by half a tile so the upper layer straddles the one below.
+    block(2, 0, 6, 4, 0) // 24
+    block(4, 1, 4, 3, 1) // 12, y offset by one half-unit for the brick look
     return result
   }
 
   if (layout === 'Easy') {
-    // 72 tiles: 10x6 base + 4x3 middle deck.
-    for (let r = 0; r < 6; r++) row(0, 10, r * 2, 0)
-    for (let r = 0; r < 3; r++) row(6, 4, 2 + r * 2, 1)
+    // 72 tiles — 10x6 base, a 6x2 deck, then a small 2x2 crown on top.
+    block(0, 0, 10, 6, 0) // 60
+    block(4, 3, 4, 2, 1) // 8, half-offset
+    block(6, 4, 2, 2, 2) // 4, crown
     return result
   }
 
-  // Turtle, 144 tiles: 87 + 36 + 16 + 4 + 1.
+  // Turtle, 144 tiles: the classic dragon shape — 87 + 36 + 16 + 4 + 1.
   const widths = [12, 8, 10, 12, 12, 10, 8, 12]
   widths.forEach((w, r) => row(12 - w + 2, w, r * 2, 0))
-  result.push({ x: 0, y: 7, z: 0 }) // far left single
-  result.push({ x: 26, y: 7, z: 0 }) // right pair
+  result.push({ x: 0, y: 7, z: 0 }) // far-left single (the head)
+  result.push({ x: 26, y: 7, z: 0 }) // right pair (the tail)
   result.push({ x: 28, y: 7, z: 0 })
   for (let r = 0; r < 6; r++) row(8, 6, 2 + r * 2, 1)
   for (let r = 0; r < 4; r++) row(10, 4, 4 + r * 2, 2)

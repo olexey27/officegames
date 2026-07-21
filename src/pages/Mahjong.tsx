@@ -141,13 +141,23 @@ export default function Mahjong() {
     setShuffles((n) => n + 1)
   }
 
-  // Board metrics (half-tile units) for percentage positioning.
-  const { W, H } = useMemo(() => {
+  // Board metrics in half-tile units. Higher layers are drawn shifted up and
+  // to the left (SHIFT_*) so the stack reads as a real 3D mound.
+  const SHIFT_X = 0.34
+  const SHIFT_Y = 0.42
+  const metrics = useMemo(() => {
     const maxX = Math.max(...tiles.map((t) => t.x))
     const maxY = Math.max(...tiles.map((t) => t.y))
-    return { W: maxX + 2, H: maxY + 2 }
+    const maxZ = Math.max(...tiles.map((t) => t.z))
+    // width/height in x-half-units (uy is 1.4x ux to match the 40:56 tile art)
+    return {
+      maxZ,
+      unitsW: maxX + 2 + maxZ * SHIFT_X,
+      unitsH: maxY + 2 + maxZ * SHIFT_Y,
+    }
   }, [tiles])
-  const PAD = 1.4
+  // Paint back-to-front: lower layers first, then within a layer the tiles
+  // toward the back (lower y, higher x) before those in front.
   const sorted = useMemo(() => [...tiles].sort((a, b) => a.z * 1000 + a.y * 30 + (30 - a.x) - (b.z * 1000 + b.y * 30 + (30 - b.x))), [tiles])
 
   return (
@@ -197,27 +207,38 @@ export default function Mahjong() {
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
         {/* Board */}
-        <div className="anim-outline relative w-full border-2 border-[var(--ink)] bg-[#10331f] p-3 shadow-[0_20px_60px_rgba(0,0,0,.12)]" style={{ background: 'linear-gradient(160deg, #14402a, #0c2418)' }}>
-          <div className="relative w-full" style={{ aspectRatio: `${W} / ${H + PAD}` }}>
+        <div className="anim-outline relative w-full overflow-x-auto border-2 border-[var(--ink)] p-3 shadow-[0_20px_60px_rgba(0,0,0,.12)] sm:p-5" style={{ background: 'linear-gradient(160deg, #14402a, #0c2418)' }}>
+          <div
+            className="relative mx-auto"
+            style={{
+              ['--ux' as never]: 'clamp(13px, 3vw, 30px)',
+              ['--uy' as never]: 'calc(var(--ux) * 1.4)',
+              width: `calc(var(--ux) * ${metrics.unitsW})`,
+              height: `calc(var(--uy) * ${metrics.unitsH})`,
+            }}
+          >
             {sorted.map((tile) => {
               if (tile.removed) return null
               const isFreeTile = freeSet.has(tile.id)
               const isSelected = selected === tile.id
               const isHint = hint !== null && (hint[0] === tile.id || hint[1] === tile.id)
               const isVanishing = vanishing.has(tile.id)
+              // Layer offset: higher tiles move up and left; padding reserves the room.
+              const leftUnits = metrics.maxZ * SHIFT_X + tile.x - tile.z * SHIFT_X
+              const topUnits = metrics.maxZ * SHIFT_Y + tile.y - tile.z * SHIFT_Y
               return (
                 <button
                   key={tile.id}
                   onClick={() => onTile(tile)}
                   className={`absolute ${isVanishing ? 'tile-match-out' : isSelected ? 'tile-pick' : ''}`}
                   style={{
-                    left: `${(tile.x / W) * 100}%`,
-                    top: `${((tile.y - tile.z * 0.6 + PAD) / (H + PAD)) * 100}%`,
-                    width: `${(2 / W) * 100}%`,
-                    height: `${(2 / (H + PAD)) * 100}%`,
+                    left: `calc(var(--ux) * ${leftUnits})`,
+                    top: `calc(var(--uy) * ${topUnits})`,
+                    width: 'calc(var(--ux) * 2)',
+                    height: 'calc(var(--uy) * 2)',
                     zIndex: (isVanishing || isSelected ? 5000 : 0) + tile.z * 1000 + tile.y * 30 + (30 - tile.x),
                     // Blocked tiles are dimmed so free ones read at a glance.
-                    filter: isFreeTile || isVanishing ? 'none' : 'brightness(0.72) saturate(0.7)',
+                    filter: isFreeTile || isVanishing ? 'drop-shadow(1px 2px 1px rgba(0,0,0,.5))' : 'brightness(0.66) saturate(0.7) drop-shadow(1px 2px 1px rgba(0,0,0,.5))',
                     cursor: isFreeTile && !won ? 'pointer' : 'default',
                   }}
                   aria-label={`Tile ${tile.kind}${isFreeTile ? ', free' : ', blocked'}${isSelected ? ', selected' : ''}`}
