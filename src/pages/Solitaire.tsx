@@ -178,7 +178,12 @@ export default function Solitaire() {
   const beginDrag = (e: React.PointerEvent, origin: Origin, cards: Card[]) => {
     if (won || cards.length === 0) return
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
-    ;(e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId)
+    // Capture is a nicety; never let it abort the drag if the pointer id is gone.
+    try {
+      ;(e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId)
+    } catch {
+      /* ignore */
+    }
     setDrag({
       origin,
       cards,
