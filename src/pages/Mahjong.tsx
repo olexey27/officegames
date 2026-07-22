@@ -40,6 +40,8 @@ export default function Mahjong() {
   const [shuffles, setShuffles] = useState(0)
   /** Ids currently playing the vanish animation — still rendered, not clickable. */
   const [vanishing, setVanishing] = useState<Set<number>>(() => new Set())
+  /** True during the brief "no moves — reshuffling" notice. */
+  const [reshuffling, setReshuffling] = useState(false)
   const vanishTimers = useRef<number[]>([])
 
   const clearVanishTimers = () => {
@@ -57,6 +59,7 @@ export default function Mahjong() {
     setStarted(false)
     setShuffles(0)
     setVanishing(new Set())
+    setReshuffling(false)
   }
 
   // Drop any pending timers when leaving the page.
@@ -68,9 +71,16 @@ export default function Mahjong() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layout])
 
-  const alive = useMemo(() => tiles.filter((t) => !t.removed), [tiles])
-  const freeSet = useMemo(() => new Set(freeTiles(tiles).map((t) => t.id)), [tiles])
-  const pairs = useMemo(() => availablePairs(tiles), [tiles])
+  // Treat tiles that are mid-vanish as already gone, so free/pair/stuck are
+  // computed on the settled board (no phantom "still matchable" pair during
+  // the removal animation).
+  const boardTiles = useMemo(
+    () => tiles.map((t) => (vanishing.has(t.id) ? { ...t, removed: true } : t)),
+    [tiles, vanishing],
+  )
+  const alive = useMemo(() => boardTiles.filter((t) => !t.removed), [boardTiles])
+  const freeSet = useMemo(() => new Set(freeTiles(boardTiles).map((t) => t.id)), [boardTiles])
+  const pairs = useMemo(() => availablePairs(boardTiles), [boardTiles])
   const won = alive.length === 0 && tiles.length > 0
   const stuck = !won && alive.length > 0 && pairs.length === 0
 
@@ -80,6 +90,22 @@ export default function Mahjong() {
     const id = setInterval(() => setSeconds((s) => s + 1), 1000)
     return () => clearInterval(id)
   }, [started, won, stuck])
+
+  // Dead end: no matchable free pair but tiles remain. Show a brief notice,
+  // then reshuffle the remaining tiles into a solvable arrangement so the
+  // player is never stranded. (`stuck` is a boolean, so this fires once.)
+  useEffect(() => {
+    if (!stuck) return
+    const timer = window.setTimeout(() => {
+      setTiles((prev) => shuffleRemaining(prev))
+      setSelected(null)
+      setHint(null)
+      setShuffles((n) => n + 1)
+      setReshuffling(false)
+    }, 1100)
+    setReshuffling(true)
+    return () => window.clearTimeout(timer)
+  }, [stuck])
 
   const onTile = (tile: Tile) => {
     if (won || vanishing.has(tile.id) || !freeSet.has(tile.id)) return
@@ -284,21 +310,13 @@ export default function Mahjong() {
             </div>
           )}
 
-          {/* Stuck overlay */}
-          {stuck && (
+          {/* Dead-end notice — the board reshuffles itself right after. */}
+          {(stuck || reshuffling) && !won && (
             <div className="absolute inset-0 z-[9999] grid place-items-center bg-[color:var(--canvas)]/85 backdrop-blur-sm">
               <div className="border-2 border-[var(--accent)] bg-[var(--surface)] px-8 py-7 text-center">
                 <p className="font-mono text-[10px] uppercase tracking-[.16em] text-[var(--accent)]">No moves left</p>
-                <p className="mt-2 font-display text-2xl font-bold uppercase tracking-tight">The wall is stuck 🦈</p>
-                <p className="mt-2 text-sm text-[var(--muted)]">{alive.length} tiles remain — shuffle them or start over.</p>
-                <div className="mt-5 flex justify-center gap-3">
-                  <button onClick={shuffle} className="retro-btn bg-[var(--accent)] px-6 py-2.5 font-display text-xs font-bold uppercase text-white">
-                    Shuffle ↗
-                  </button>
-                  <button onClick={() => restart(layout)} className="retro-btn bg-[var(--surface)] px-6 py-2.5 font-display text-xs font-bold uppercase">
-                    New game
-                  </button>
-                </div>
+                <p className="mt-2 font-display text-2xl font-bold uppercase tracking-tight">Reshuffling the wall 🀄</p>
+                <p className="mt-2 text-sm text-[var(--muted)]">No pair was reachable — the {alive.length} remaining tiles are being mixed into a solvable board.</p>
               </div>
             </div>
           )}
